@@ -6,17 +6,12 @@ use Illuminate\Http\Request;
 
 use App\Models\Product;
 
-class WelcomeController extends Controller
+class CartController extends Controller
 {
-
     public function index()
     {
 
-        $product = Product::all();
+        return view('cart.cart');
 
-
-
-        return view('welcome', compact('product'));
     }
-
 }

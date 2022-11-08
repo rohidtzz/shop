@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,5 @@ use App\Http\Controllers\WelcomeController;
 */
 
 Route::get('/',[WelcomeController::class,'index']);
+
+Route::get('/cart',[CartController::class,'index']);
