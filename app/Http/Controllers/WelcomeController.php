@@ -33,7 +33,7 @@ class WelcomeController extends Controller
 
         curl_close($curl);
 
-        dd( empty($error) ? $response : $error);
+        // dd( empty($error) ? $response : $error);
 
         $product = Product::all();
 
