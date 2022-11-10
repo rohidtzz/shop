@@ -332,7 +332,7 @@ body{
 
 
 
-                              <button class="btn btn-primary btn-lg btn-block" >Check out</button>
+                              <button onclick="return confirm('yakin checkout?');" class="btn btn-primary btn-lg btn-block" >Check out</button>
                             </form>
 
 
