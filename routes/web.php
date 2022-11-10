@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CheckoutController;
+
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +23,40 @@ use App\Http\Controllers\CartController;
 
 Route::get('/',[WelcomeController::class,'index']);
 
-Route::get('/cart',[CartController::class,'index']);
+
+
+
+
+route::post ('/loginn', [AuthController::class,'login']);
+
+Route::post('login', [AuthController::class,'login'])->name('login');
+Route::post('/register', [AuthController::class,'register'])->name('register');
+
+Route::get('/logout', [AuthController::class,'logout']);
+
+Route::group(['middleware' => ['role:admin']], function () {
+
+    Route::get('/cart',[CartController::class,'index']);
+
+});
+
+Route::group(['middleware' => ['role:staff,admin']], function () {
+
+    Route::get('/cart',[CartController::class,'index']);
+
+});
+
+Route::group(['middleware' => ['role:user,staff,admin']], function () {
+
+    Route::get('/cart',[CartController::class,'index']);
+    Route::get('/cart/{id}/create',[CartController::class,'create']);
+
+    Route::get('/checkout',[CheckoutController::class,'index']);
+
+    Route::post('/transaction/store/',[TransactionController::class,'store']);
+
+});
+
+
+
+

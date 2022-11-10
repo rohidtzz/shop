@@ -14,8 +14,6 @@ class WelcomeController extends Controller
 
         $product = Product::all();
 
-
-
         return view('welcome', compact('product'));
     }
 

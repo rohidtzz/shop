@@ -34,21 +34,103 @@
                             </ul>
                         </li>
                     </ul>
-                    <form class="d-flex">
-                        @if(!Auth::check())
+
+                        @if(Auth::check())
                         <a class="btn btn-outline-dark" href="{{ url('cart') }}">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </a>
                         @else
-                        <a style="margin-right:10px " class="btn btn-outline-dark" href="{{ url('login') }}">
+                        <button style="margin-right:10px " class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#login">
                             Login
-                        </a>
+                        </button>
 
-                        <a class="btn btn-outline-dark" href="{{ url('register') }}">
+                        <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <form method="POST" action="{{ route('login') }}" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-floating mb-3">
+                                          <input name="username" type="text" class="form-control"  placeholder="username" required>
+                                          <label for="floatingInput">Username / Email</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                          <input name="password" type="password" class="form-control" placeholder="Password" required>
+                                          <label for="floatingPassword">Password</label>
+                                        </div>
+                                        <div class="d-grid">
+                                          <button class="btn btn-primary text-uppercase fw-bold" type="submit">Sign in</button>
+                                        </div>
+                                    </form>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+
+
+
+                        <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#register">
                             Register
-                        </a>
+                        </button>
+
+
+                        <div class="modal fade" id="register" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-floating mb-3">
+                                          <input name="username" type="text" class="form-control"  placeholder="name@example.com" required>
+                                          <label for="floatingInput">Username</label>
+                                        </div>
+
+                                        <div class="form-floating mb-3">
+                                            <input name="password" type="password" class="form-control"  placeholder="Password" required>
+                                            <label for="floatingPassword">Password</label>
+                                        </div>
+
+                                        <div class="form-floating mb-3">
+                                            <input name="email" type="email" class="form-control"  placeholder="name@example.com" required>
+                                            <label for="floatingInput">Email</label>
+                                        </div>
+
+                                        <div class="form-floating mb-3">
+                                            <input name="name" type="text" class="form-control"  placeholder="name@example.com" required>
+                                            <label for="floatingInput">Nama Lengkap</label>
+                                        </div>
+
+                                        <div class="form-floating mb-3">
+                                            <input name="no_hp" type="number" class="form-control"  placeholder="name@example.com" required>
+                                            <label for="floatingInput">No Hp</label>
+                                        </div>
+
+                                        {{-- <div class="form-floating mb-3">
+                                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                            <label for="floatingInput"></label>
+                                        </div> --}}
+
+
+                                        <div class="d-grid">
+                                          <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign up</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                              </div>
+                            </div>
+                        </div>
 
                         @endif
 
@@ -75,7 +157,6 @@
                               </div>
                             </div>
                         </div> --}}
-                    </form>
                 </div>
             </div>
         </nav>
@@ -97,7 +178,9 @@
                             <div class="col mb-5">
                                 <div class="card h-100">
                                     <!-- Product image-->
+                                    <button style="border: none" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $data->id }}">
                                     <img class="kk img-thumbnail" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                                    </button>
                                     <!-- Product details-->
                                     <div class="card-body p-4">
                                         <div class="text-center">
@@ -112,12 +195,57 @@
                                     </div>
                                     <!-- Product actions-->
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                                        <div class="text-center">
+                                            <a class="btn btn-outline-dark mt-auto" href="{{ url('cart/'.$data->id.'/create') }}">Add to cart</a>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="modal fade" id="exampleModal{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="card">
+                                        <div class="card-body">
+
+                                            <div class="card-image">
+                                                <span class="card-notify-badge"></span>
+                                                <img class="img-fluid" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="Alternate Text" />
+                                            </div>
+                                                <br>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <h6 class="text-center">{{ $data->name }}</h6>
+                                                    <br>
+                                                    <p class="text-center">{{ $data->description }}</p>
+                                                </div>
+                                                <div class="col-6 text-center">
+                                                    <br>
+                                                    <p class="fst-italic">Rp. {{ number_format($data->price) }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ url('cart/'.$data->id.'/create') }}">Add to cart</a></div>
+
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
                     @endforeach
+
 
                     </div>
                 </div>
@@ -131,5 +259,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="{{ asset('landing/js/scripts.js') }}"></script>
+        @include('sweetalert::alert')
     </body>
 </html>

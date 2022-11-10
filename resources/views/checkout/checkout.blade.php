@@ -9,7 +9,6 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	{{-- <link rel="stylesheet" href="assets/css/style.css"> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <style>
         .shopping-cart{
 	padding-bottom: 50px;
@@ -186,15 +185,15 @@ body{
 
 		        <div class="content">
 	 				<div class="row">
-	 					<div class="col-md-12 col-lg-12">
+	 					<div class="col-md-12 col-lg-8">
 	 						<div class="items">
-
+                                <h2 style="margin:2%">Product</h2>
 
 
 
                                 @foreach ($product as $data)
 
-                                <a href="" style="text-decoration:none;color: black"><i  class="fa-solid fa-xmark d-flex justify-content-start" style="margin:20px 20px"></i></a>
+
                                     <div class="product">
                                         <div class="row">
                                             <div class="col-md-3">
@@ -238,39 +237,111 @@ body{
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-1">
-
-                                            </div>
-
-
                                         </div>
                                     </div>
 
                                 @endforeach
 
 
-
-
 				 			</div>
-
 			 			</div>
-
-
-
-			 			<div class="d-flex justify-content-end" >
-
-
-			 					<a type="button" href="{{ url('/checkout') }}" class="btn btn-primary btn-lg btn-block">Next</a>
-
+			 			<div class="col-md-12 col-lg-4">
+			 				<div class="summary">
+			 					<h3>Summary</h3>
+			 					<div class="summary-item"><span class="text">Subtotal</span><span class="price">Rp.
+                                    {{ number_format($total) }}
+                                </span></div>
+			 					<div class="summary-item"><span class="text">Fee</span><span class="price">Rp. {{ number_format(4500) }}</span></div>
+			 					<div class="summary-item"><span class="text">Total</span><span class="price">Rp. {{ number_format($total+4250) }}</span></div>
+			 					{{-- <a type="button" href="{{ url('/checkout') }}" class="btn btn-primary btn-lg btn-block">Checkout</a> --}}
+				 			</div>
 			 			</div>
-
 		 			</div>
 		 		</div>
 	 		</div>
 		</section>
 	</main>
 
+    <main class="page" >
+        <section class="shopping-cart dark">
 
+            <div class="container">
+               {{-- <div class="block-heading">
+                 <h2>Shopping Cart</h2>
+                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+               </div> --}}
+
+               <div class="content">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="items">
+                                <h2 style="margin:2%">Metode Pembayaran</h2>
+
+
+
+
+                                   <div class="product">
+                                       <div class="row">
+                                        @foreach ($mas as $channel)
+
+
+                                           <div  class="col-md-3" style="padding-left: 2%; padding-right:2%">
+
+                                            <form action="{{ url('transaction/store/') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $data->id }}">
+                                                {{-- <input type="hidden" name="method" value="{{ $channel->code }}"> --}}
+
+                                                <div style="background-color: white; border:none;" type="submit" class="card">
+                                                    {{-- <button href="" style="border: none"> --}}
+
+                                                    <img class="card-img-top" src="{{ $channel->icon_url }}">
+                                                    {{-- </button> --}}
+
+                                                    <div class="card-body">
+                                                        <div class="card-text">
+                                                            {{-- <p></p> --}}
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="method" value="{{ $channel->code }}" required>
+
+                                                                <label class="form-check-label" for="inlineRadio2">bayar dengan {{ $channel->code }}</label>
+                                                              </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+
+
+                                            @endforeach
+
+
+                                       </div>
+                                   </div>
+
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="d-flex justify-content-end" >
+
+
+
+                              <button class="btn btn-primary btn-lg btn-block" >Check out</button>
+                            </form>
+
+
+                    </div>
+                    </div>
+                </div>
+            </div>
+       </section>
+   </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 <script>
