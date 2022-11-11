@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
 
+use Auth;
+
 class WelcomeController extends Controller
 {
 
@@ -15,11 +17,16 @@ class WelcomeController extends Controller
 
         $product = Product::all();
 
-        $users = Auth()->user()->id;
+        if(Auth::check()){
+            $users = Auth()->user()->id;
 
         $cart = Cart::where('user_id',$users)->count();
 
         return view('welcome', compact('product','cart'));
+        }
+        return view('welcome', compact('product'));
+
+
     }
 
 }
