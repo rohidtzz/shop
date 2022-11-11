@@ -78,7 +78,29 @@ class TransactionController extends Controller
 
         $tripay = new TripayController;
 
-        $tripay->requestTransaction($method,$product);
+        $tipa = $tripay->requestTransaction($method,$product);
+
+        // dd($tipa);
+
+        Cart::where('user_id',$users)->delete();
+
+        return redirect('transaction/'.$tipa->reference);
+
+    }
+
+    public function detail($references)
+    {
+
+        $tripay = new TripayController;
+
+        $data = $tripay->detailTransaction($references);
+
+        $total_fee = $data->total_fee;
+        $total = $data->amount;
+        $payment_method = $data->payment_method;
+        // dd($data);
+
+        return view('transaction.detail',compact('data','total_fee','total','payment_method'));
 
     }
 }

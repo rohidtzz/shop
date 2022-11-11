@@ -260,10 +260,10 @@ body{
 			 			<div class="d-flex justify-content-end" >
 
 
-                            @if (App\Models\Cart::where('user_id',Auth()->user()->id)->first())
+                            {{-- @if (App\Models\Cart::where('user_id',Auth()->user()->id)->first())
 			 					<a type="button" href="{{ url('/checkout') }}" class="btn btn-primary btn-lg btn-block">Next</a>
                                 @else
-                            @endif
+                            @endif --}}
 
 			 			</div>
 
@@ -272,6 +272,100 @@ body{
 	 		</div>
 		</section>
 	</main>
+    @if (App\Models\Cart::where('user_id',Auth()->user()->id)->first())
+
+
+    <main class="page" >
+        <section class="shopping-cart dark">
+
+            <div class="container">
+               {{-- <div class="block-heading">
+                 <h2>Shopping Cart</h2>
+                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+               </div> --}}
+
+               <div class="content">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="items">
+                                <h2 style="margin:2%">Metode Pembayaran</h2>
+
+
+
+
+                                   <div class="product">
+                                       <div class="row">
+                                        @foreach ($mas as $channel)
+
+
+                                           <div  class="col-md-3" style="padding-left: 2%; padding-right:2%">
+
+                                            <form action="{{ url('checkout/') }}" method="get">
+
+
+
+                                                {{-- <input type="hidden" name="product_id" value="{{ $m }}"> --}}
+
+
+                                                {{-- <input type="hidden" name="method" value="{{ $channel->code }}"> --}}
+
+                                                <div style="background-color: white; border:none;" type="submit" class="card">
+                                                    {{-- <button href="" style="border: none"> --}}
+
+                                                    <img class="card-img-top" src="{{ $channel->icon_url }}">
+                                                    {{-- </button> --}}
+
+                                                    <div class="card-body">
+                                                        <div class="card-text">
+                                                            {{-- <p></p> --}}
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="code" value="{{ $channel->code }}" required>
+
+                                                                <label class="form-check-label" for="inlineRadio2">bayar dengan {{ $channel->code }}</label>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+
+
+                                            @endforeach
+
+
+                                       </div>
+                                   </div>
+
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="d-flex justify-content-end" >
+
+
+                            @if (App\Models\Cart::where('user_id',Auth()->user()->id)->first())
+
+                           @else
+                       @endif
+
+                       <button type="submit"  class="btn btn-primary btn-lg btn-block">Next</button>
+
+                    </form>
+
+                    </div>
+                    </div>
+                </div>
+            </div>
+       </section>
+   </main>
+
+   @else
+   @endif
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

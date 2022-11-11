@@ -34,9 +34,34 @@ class CartController extends Controller
 
         }
 
+        $apiKey = 'DEV-rkmXt6EVoU1HKPimGZkaMQZ820HyTXlm1CNyEbfp';
+
+        // $payload = ['code' => 'BRIVA'];
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_FRESH_CONNECT  => true,
+        CURLOPT_URL            => 'https://tripay.co.id/api-sandbox/merchant/payment-channel',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HEADER         => false,
+        CURLOPT_HTTPHEADER     => ['Authorization: Bearer '.$apiKey],
+        CURLOPT_FAILONERROR    => false,
+        CURLOPT_IPRESOLVE      => CURL_IPRESOLVE_V4
+        ));
+
+        $response = curl_exec($curl);
+        $error = curl_error($curl);
+
+        curl_close($curl);
+
+        // echo $response ? $response : $error;
+
+        $mas = json_decode($response)->data;
+
         // dd($harga);
 
-        return view('cart.cart',compact('product','total'));
+        return view('cart.cart',compact('product','total','mas'));
 
     }
 

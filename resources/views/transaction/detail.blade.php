@@ -172,7 +172,49 @@ body{
             </div>
         </div>
     </nav>
-    </nav>
+
+    {{-- <nav class="navbar navbar-dark bg-primary navbar-expand fixed-bottom d-md-none d-lg-none d-xl-none">
+        <ul class="navbar-nav nav-justified w-100">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-house" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+              </svg>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+              </svg>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+              </svg>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+              </svg>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </nav> --}}
 
 	<main class="page" style="margin-top: 4% ">
 	 	<section class="shopping-cart dark">
@@ -185,13 +227,16 @@ body{
 
 		        <div class="content">
 	 				<div class="row">
-	 					<div class="col-md-12 col-lg-12">
+	 					<div class="col-md-12 col-lg-8">
 	 						<div class="items">
                                 <h2 style="margin:2%">Product</h2>
 
 
 
-                                @foreach ($product as $data)
+                                {{-- @foreach ($data as $ref) --}}
+
+                                    @foreach ($data->order_items as $items)
+
 
 
                                     <div class="product">
@@ -204,9 +249,29 @@ body{
                                                     <div class="row">
                                                         <div class="col-md-5 product-name">
                                                             <div class="product-name">
-                                                                <p href="#">{{ App\Models\Product::find($data->product_id)->name }}</p>
+                                                                <p href="#">{{ $items->name }}</p>
                                                                 <div class="product-info">
-                                                                    <span class="value">{{ App\Models\Product::find($data->product_id)->description }}</span>
+
+                                                                    @if ($data->status == "PAID")
+                                                                        <span class="value badge bg-primary">status: {{ $data->status }}</span>
+                                                                        <p>expired Time: {{ gmdate("y-m-d h:i:s",$data->expired_time) }}</p>
+                                                                        @elseif ($data->status == "UNPAID")
+                                                                        <span class="value badge bg-danger">{{ $data->status }}</span>
+                                                                        <p>expired Time: {{ gmdate("y-m-d h:i:s",$data->expired_time) }}</p>
+                                                                        @elseif ($data->status == "REFUND")
+                                                                        <p>status: <span class="value badge bg-info">{{ $data->status }}</span></p>
+                                                                        <p>expired Time: {{ gmdate("y-m-d h:i:s",$data->expired_time) }}</p>
+                                                                        @elseif ($data->status == "EXPIRED")
+                                                                        <span class="value badge bg-danger">{{ $data->status }}</span>
+                                                                        <p>expired Time: {{ gmdate("y-m-d h:i:s",$data->expired_time) }}</p>
+                                                                        @elseif ($data->status == "FAILED")
+                                                                        <span class="value badge bg-danger">{{ $data->status }}</span>
+                                                                        <p>expired Time: {{ gmdate("y-m-d h:i:s",$data->expired_time) }}</p>
+                                                                        @else
+                                                                        <span class="value">{{ $data->status }}</span>
+                                                                        <p>expired Time: {{ gmdate("y-m-d h:i:s",$data->expired_time) }}</p>
+                                                                    @endif
+
                                                                     {{-- <div>Display: <span class="value">5 inch</span></div>
                                                                     <div>RAM: <span class="value">4GB</span></div>
                                                                     <div>Memory: <span class="value">32GB</span></div> --}}
@@ -219,9 +284,9 @@ body{
                                                             <center>
                                                             <table class="" >
                                                                 <tr>
-                                                                    <td><a class="btn" href="{{ url('/cart/minus/'.$data->id) }}">-</a></td>
-                                                                    <td><input id="quantity" type="number" disabled value="{{ $data->qty }}" class="form-control quantity-input text-center"></td>
-                                                                    <td><a class="btn" href="{{ url('/cart/plus/'.$data->id) }}">+</a></td>
+                                                                    {{-- <td><a class="btn" href="">-</a></td> --}}
+                                                                    <td><input id="quantity" type="number" disabled value="{{ $items->quantity }}" class="form-control quantity-input text-center"></td>
+                                                                    {{-- <td><a class="btn" href="">+</a></td> --}}
                                                                 </tr>
                                                             </table>
                                                         </center>
@@ -231,7 +296,7 @@ body{
                                                         </div>
                                                         <div class="col-md-3 price">
                                                             {{-- <label for="quantity">Price: </label><br> --}}
-                                                            <span class="fst-italic" style="padding-bottom: 50px">&nbsp; Rp.{{ number_format($data->subtotal) }}</span>
+                                                            <span class="fst-italic" style="padding-bottom: 50px">&nbsp; Rp.{{ number_format($items->price) }}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -239,29 +304,36 @@ body{
 
                                         </div>
                                     </div>
+                                    @endforeach
 
-                                @endforeach
+                                {{-- @endforeach --}}
 
 
 				 			</div>
 			 			</div>
-			 			<div class="col-md-12 col-lg-12">
+			 			<div class="col-md-12 col-lg-4">
 			 				<div class="summary">
 			 					<h3>Summary</h3>
-			 					<div class="summary-item"><span class="text">Subtotal</span><span class="price">Rp.
-                                    {{ number_format($total) }}
-                                </span></div>
-			 					<div class="summary-item"><span class="text">Fee</span><span class="price">Rp.
 
-                                    {{ number_format($kal[0]->total_fee->customer) }}
-                                    {{-- @foreach ($kal[0]->total_fee as $fee)
-
-                                    {{ $fee->customer }}
-
-                                    @endforeach --}}
-                                </span></div>
-			 					<div class="summary-item"><span class="text">Total</span><span style="font-weight: bold;font-size:25px" class="price">Rp. {{ number_format($total+$kal[0]->total_fee->customer) }}</span></div>
+			 					<div class="summary-item"><span class="text">Fee payment method {{ $payment_method }}</span><span class="price">Rp. {{ number_format($total_fee) }}</span></div>
+			 					<div class="summary-item"><span class="text">Jumlah yang harus dibayar</span><span style="font-weight: bold;font-size:22px" class="price">Rp. {{ number_format($total) }}</span></div>
 			 					{{-- <a type="button" href="{{ url('/checkout') }}" class="btn btn-primary btn-lg btn-block">Checkout</a> --}}
+                                 <h4 style="margin-top:20px">Instruksi pembayaran</h4>
+                                 @foreach ($data->instructions as $ins)
+
+
+                                 <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                      {{ $ins->title }}
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        @foreach ($ins->steps as $in)
+                                      <li class="dropdown-item disabled" style="color: black" >{{ $loop->iteration }}.{!! $in !!}</li>
+                                      @endforeach
+
+                                    </ul>
+                                  </div>
+                                  @endforeach
 				 			</div>
 			 			</div>
 		 			</div>
@@ -270,90 +342,7 @@ body{
 		</section>
 	</main>
 
-    <main class="page" >
-        <section class="shopping-cart dark">
 
-            <div class="container">
-               {{-- <div class="block-heading">
-                 <h2>Shopping Cart</h2>
-                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
-               </div> --}}
-
-               <div class="content">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12">
-                            <div class="items">
-                                <h2 style="margin:2%">Metode Pembayaran</h2>
-
-
-
-
-                                   <div class="product">
-                                       <div class="row">
-                                        @foreach ($mas as $channel)
-
-
-                                           <div  class="col-md-3" style="padding-left: 2%; padding-right:2%">
-
-                                            <form action="{{ url('transaction/store/') }}" method="post">
-                                                @csrf
-
-
-                                                {{-- <input type="hidden" name="product_id" value="{{ $m }}"> --}}
-
-
-                                                {{-- <input type="hidden" name="method" value="{{ $channel->code }}"> --}}
-
-                                                <div style="background-color: white; border:none;" type="submit" class="card">
-                                                    {{-- <button href="" style="border: none"> --}}
-
-                                                    <img class="card-img-top" src="{{ $channel->icon_url }}">
-                                                    {{-- </button> --}}
-
-                                                    <div class="card-body">
-                                                        <div class="card-text">
-                                                            {{-- <p></p> --}}
-                                                            <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="hidden" name="method" value="{{ $channel->code }}" checked="checked">
-
-                                                                <label class="form-check-label" for="inlineRadio2">bayar dengan {{ $channel->code }}</label>
-                                                              </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-
-                                            </div>
-
-
-                                            @endforeach
-
-
-                                       </div>
-                                   </div>
-
-
-
-                            </div>
-                        </div>
-
-
-                        <div class="d-flex justify-content-end" >
-
-
-
-                                    <button onclick="return confirm('yakin checkout?');" class="btn btn-primary btn-lg btn-block" >Check out</button>
-                            </form>
-
-
-                    </div>
-                    </div>
-                </div>
-            </div>
-       </section>
-   </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     @include('sweetalert::alert')
 </body>

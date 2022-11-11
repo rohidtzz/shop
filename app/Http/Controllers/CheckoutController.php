@@ -9,6 +9,8 @@ use App\Models\Product;
 
 use App\Models\Order;
 
+use Illuminate\Support\Facades\Input;
+
 
 class CheckoutController extends Controller
 {
@@ -33,6 +35,10 @@ class CheckoutController extends Controller
 
 
         // dd($b);
+        if(request()->get('code') == null){
+            return redirect()->back()->with('errors','invalid');
+        }
+        $code = request()->get('code');
 
 
 
@@ -51,13 +57,13 @@ class CheckoutController extends Controller
 
                     $apiKey = 'DEV-rkmXt6EVoU1HKPimGZkaMQZ820HyTXlm1CNyEbfp';
 
-            // $payload = ['code' => 'BRIVA'];
+            $payload = ['code' => $code];
 
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
             CURLOPT_FRESH_CONNECT  => true,
-            CURLOPT_URL            => 'https://tripay.co.id/api-sandbox/merchant/payment-channel',
+            CURLOPT_URL            => 'https://tripay.co.id/api-sandbox/merchant/payment-channel?'.http_build_query($payload),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER         => false,
             CURLOPT_HTTPHEADER     => ['Authorization: Bearer '.$apiKey],
@@ -76,13 +82,22 @@ class CheckoutController extends Controller
 
             // dd($mas);
 
+            $tripay = new TripayController;
+
+
+            // dd($code);
+
+            $kal = $tripay->kalkulator($total,$code);
+
+            // dd($kal);
 
 
 
 
 
 
-        return view('checkout.checkout',compact('product','total','mas'));
+
+        return view('checkout.checkout',compact('product','total','mas','kal'));
 
     }
 
