@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\Cart;
 
 class TransactionController extends Controller
 {
@@ -14,18 +15,61 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
 
-            // dd($request->all());
+        // dd($request->all());
         // $product = Product::find($request->product_id);
 
-        if(Cart::where('user_id',$users)->get()){
-            return redirect()->back()->with('errors','invalid');
-        }
-
-        if(Order::where('user_id',$users)->where('status', 'pending')->get()){
-            return redirect()->back()->with('errors','invalid');
-        }
-
         $users = Auth()->user()->id;
+
+        if(!Cart::where('user_id',$users)->first()){
+            return redirect()->back()->with('errors','invalid');
+        }
+
+        // if(!Order::where('user_id',$users)->where('status', 'pending')->get()){
+        //     return redirect()->back()->with('errors','invalid');
+        // }
+
+        $product = Cart::with('product')->where('user_id',$users)->get();
+
+        $cart = Cart::where('user_id',$users)->get();
+
+        foreach($product as $l){
+
+            $j[] = Product::find($l->product_id);
+            $m[] = $l;
+            // $m[] = $l;
+
+
+        }
+
+        // foreach($m as $p){
+        //     $h[] = $p->qty;
+        // }
+
+        // dd($m);
+        // foreach($m as $o){
+        //     $f = $o->qty;
+        // }
+
+        foreach($m as $k){
+
+
+                $b[] = [
+                    "name" => Product::find($k->product_id)->name,
+                    "price" => $k->subtotal,
+                    "quantity" => $k->qty
+                ];
+
+
+
+        }
+
+        Order::create([
+            'data' => json_encode($b),
+            'user_id' => $users,
+            'status' => 'pending'
+        ]);
+
+
 
         $product = Order::where('user_id', $users)->get();
 

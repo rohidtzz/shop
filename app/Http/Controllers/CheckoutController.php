@@ -18,53 +18,19 @@ class CheckoutController extends Controller
 
         $users = Auth()->user()->id;
 
-        if(Cart::where('user_id',$users)->get()){
+        if(!Cart::where('user_id',$users)->first()){
             return redirect()->back()->with('errors','invalid');
         }
+
+        // if(!Order::where('user_id',$users)->where('status', 'pending')->get()){
+        //     return redirect()->back()->with('errors','invalid');
+        // }
 
 
 
         // $product = Cart::where('user_id',$users)->get();
         $product = Cart::with('product')->where('user_id',$users)->get();
 
-        $cart = Cart::where('user_id',$users)->get();
-
-        foreach($product as $l){
-
-            $j[] = Product::find($l->product_id);
-            $m[] = $l;
-            // $m[] = $l;
-
-
-        }
-
-        // foreach($m as $p){
-        //     $h[] = $p->qty;
-        // }
-
-        // dd($m);
-        // foreach($m as $o){
-        //     $f = $o->qty;
-        // }
-
-        foreach($m as $k){
-
-
-                $b[] = [
-                    "name" => Product::find($k->product_id)->name,
-                    "price" => Product::find($k->product_id)->price,
-                    "quantity" => $k->qty
-                ];
-
-
-
-        }
-
-        Order::create([
-            'data' => json_encode($b),
-            'user_id' => $users,
-            'status' => 'pending'
-        ]);
 
         // dd($b);
 

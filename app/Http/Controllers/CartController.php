@@ -61,4 +61,77 @@ class CartController extends Controller
 
         return redirect('/cart');
     }
+
+    public function delete($id)
+    {
+
+        $users = Auth()->user()->id;
+
+        $cart = Cart::where('user_id',$users)->where('id',$id)->delete();
+
+        if(!$cart){
+            return redirect()->back()->with('errors', 'Delete Product Cart Failed');
+        }
+
+        return redirect()->back()->withSuccess('Delete Product Cart Success');
+
+    }
+
+    public function plus($id)
+    {
+
+        $users = Auth()->user()->id;
+
+        $cek = Cart::find($id)->first();
+
+        $pr = Product::find($id)->first()->price;
+
+
+
+
+        if($cek->qty == 10){
+            return redirect()->back()->with('errors','Product tidak bisa melebihi batas');
+        }
+
+        // dd($cek->price + $pr);
+
+        $cart = Cart::where('user_id',$users)->where('id',$id)->update([
+            'qty' => $cek->qty+1,
+            'subtotal' => $cek->subtotal+$pr
+        ]);
+
+        if(!$cart){
+            return redirect()->back()->with('errors', 'Tamabah quantity Product Failed');
+        }
+
+        return redirect()->back()->withSuccess('tambah Product Success');
+
+    }
+
+    public function minus($id)
+    {
+
+        $users = Auth()->user()->id;
+
+        $cek = Cart::find($id)->first();
+        $pr = Product::find($id)->first()->price;
+
+        if($cek->qty == 1){
+            return redirect()->back()->with('errors','Product tidak bisa dikurangi');
+        }
+
+        $cart = Cart::where('user_id',$users)->where('id',$id)->update([
+            'qty' => $cek->qty-1,
+            'subtotal' => $cek->subtotal-$pr
+        ]);
+
+
+
+        if(!$cart){
+            return redirect()->back()->with('errors', 'Kurangin Product Failed');
+        }
+
+        return redirect()->back()->withSuccess('kurangin Product Cart Success');
+
+    }
 }

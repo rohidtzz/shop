@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Product;
+use App\Models\Cart;
 
 class WelcomeController extends Controller
 {
@@ -14,7 +15,11 @@ class WelcomeController extends Controller
 
         $product = Product::all();
 
-        return view('welcome', compact('product'));
+        $users = Auth()->user()->id;
+
+        $cart = Cart::where('user_id',$users)->count();
+
+        return view('welcome', compact('product','cart'));
     }
 
 }

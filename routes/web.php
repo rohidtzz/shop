@@ -49,6 +49,9 @@ Route::group(['middleware' => ['role:staff,admin']], function () {
 Route::group(['middleware' => ['role:user,staff,admin']], function () {
 
     Route::get('/cart',[CartController::class,'index']);
+    Route::get('/cart/delete/{id}',[CartController::class,'delete']);
+    Route::get('/cart/plus/{id}',[CartController::class,'plus']);
+    Route::get('/cart/minus/{id}',[CartController::class,'minus']);
     Route::get('/cart/{id}/create',[CartController::class,'create']);
 
     Route::get('/checkout',[CheckoutController::class,'index']);

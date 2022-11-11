@@ -157,8 +157,8 @@ body{
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a></li>
+                    {{-- <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -167,7 +167,7 @@ body{
                             <li><a class="dropdown-item" href="#!">Popular Items</a></li>
                             <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                 </ul>
 
             </div>
@@ -194,7 +194,7 @@ body{
 
                                 @foreach ($product as $data)
 
-                                <a href="" style="text-decoration:none;color: black"><i  class="fa-solid fa-xmark d-flex justify-content-start" style="margin:20px 20px"></i></a>
+                                <a href="{{ url('/cart/delete/'.$data->id) }}" style="text-decoration:none;color: black"><i  class="fa-solid fa-xmark d-flex justify-content-start" style="margin:20px 20px"></i></a>
                                     <div class="product">
                                         <div class="row">
                                             <div class="col-md-3">
@@ -220,9 +220,9 @@ body{
                                                             <center>
                                                             <table class="" >
                                                                 <tr>
-                                                                    <td><a class="btn">-</a></td>
+                                                                    <td><a class="btn" href="{{ url('/cart/minus/'.$data->id) }}">-</a></td>
                                                                     <td><input id="quantity" type="number" disabled value="{{ $data->qty }}" class="form-control quantity-input text-center"></td>
-                                                                    <td><a class="btn">+</a></td>
+                                                                    <td><a class="btn" href="{{ url('/cart/plus/'.$data->id) }}">+</a></td>
                                                                 </tr>
                                                             </table>
                                                         </center>
@@ -232,7 +232,7 @@ body{
                                                         </div>
                                                         <div class="col-md-3 price">
                                                             {{-- <label for="quantity">Price: </label><br> --}}
-                                                            <span class="fst-italic">&nbsp; Rp.{{ number_format(App\Models\Product::find($data->product_id)->price) }}</span>
+                                                            <span class="fst-italic">&nbsp; Rp.{{ number_format($data->subtotal) }}</span>
                                                         </div>
                                                     </div>
                                                 </div>
