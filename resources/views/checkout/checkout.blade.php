@@ -289,7 +289,11 @@ body{
 
                                             <form action="{{ url('transaction/store/') }}" method="post">
                                                 @csrf
-                                                <input type="hidden" name="product_id" value="{{ $data->id }}">
+
+
+                                                {{-- <input type="hidden" name="product_id" value="{{ $m }}"> --}}
+
+
                                                 {{-- <input type="hidden" name="method" value="{{ $channel->code }}"> --}}
 
                                                 <div style="background-color: white; border:none;" type="submit" class="card">
@@ -343,10 +347,9 @@ body{
        </section>
    </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    @include('sweetalert::alert')
 </body>
-<script>
 
-</script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>

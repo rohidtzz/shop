@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Cart;
+use App\Models\Product;
+
+use App\Models\Order;
+
 
 class CheckoutController extends Controller
 {
@@ -12,12 +16,59 @@ class CheckoutController extends Controller
     public function index()
     {
 
-
         $users = Auth()->user()->id;
+
+        if(Cart::where('user_id',$users)->get()){
+            return redirect()->back()->with('errors','invalid');
+        }
+
+
+
         // $product = Cart::where('user_id',$users)->get();
         $product = Cart::with('product')->where('user_id',$users)->get();
 
-        // dd($product);
+        $cart = Cart::where('user_id',$users)->get();
+
+        foreach($product as $l){
+
+            $j[] = Product::find($l->product_id);
+            $m[] = $l;
+            // $m[] = $l;
+
+
+        }
+
+        // foreach($m as $p){
+        //     $h[] = $p->qty;
+        // }
+
+        // dd($m);
+        // foreach($m as $o){
+        //     $f = $o->qty;
+        // }
+
+        foreach($m as $k){
+
+
+                $b[] = [
+                    "name" => Product::find($k->product_id)->name,
+                    "price" => Product::find($k->product_id)->price,
+                    "quantity" => $k->qty
+                ];
+
+
+
+        }
+
+        Order::create([
+            'data' => json_encode($b),
+            'user_id' => $users,
+            'status' => 'pending'
+        ]);
+
+        // dd($b);
+
+
 
         $harga = 0;
         $total = 0;

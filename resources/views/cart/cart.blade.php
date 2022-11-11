@@ -260,7 +260,10 @@ body{
 			 			<div class="d-flex justify-content-end" >
 
 
+                            @if (App\Models\Cart::where('user_id',Auth()->user()->id)->first())
 			 					<a type="button" href="{{ url('/checkout') }}" class="btn btn-primary btn-lg btn-block">Next</a>
+                                @else
+                            @endif
 
 			 			</div>
 
@@ -272,6 +275,7 @@ body{
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    @include('sweetalert::alert')
 </body>
 <script>
 

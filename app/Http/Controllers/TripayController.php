@@ -11,38 +11,50 @@ class TripayController extends Controller
     public function requestTransaction($method,$product)
     {
 
+        $ms = json_decode($product,true)[0];
+        $mk = json_decode($ms['data'],true);
+
+        $j = 0;
+        foreach($mk as $k){
+
+            $j += $k['price'];
+
+
+        }
+        // dd($j);
 
 
         $apiKey       = 'DEV-rkmXt6EVoU1HKPimGZkaMQZ820HyTXlm1CNyEbfp';
         $privateKey   = 'ZH3sJ-lGok9-l0GLk-1fF8h-UPBX7';
         $merchantCode = 'T16098';
         $merchantRef  = 'PX-'.time();
-        // $amount       = 1000000;
+        $amount       = $j;
 
         $user = auth()->user();
+
 
         $data = [
             'method'         => $method,
             'merchant_ref'   => $merchantRef,
-            'amount'         => $product->price,
+            'amount'         => $amount,
             'customer_name'  => $user->name,
             'customer_email' => $user->email,
             'customer_phone' => $user->no_hp,
-            'order_items'    => [
-                [
-                    'name'        => $product->name,
-                    'price'       => $product->price,
-                    'quantity'    => 1,
-                ]
+            'order_items'    =>  $mk,
                 // [
                 //     'name'        => $product->name,
-                //     'price'       => $book->price,
+                //     'price'       => $product->price,
+                //     'quantity'    => 1,
+                // ],
+                // [
+                //     'name'        => $product->name,
+                //     'price'       => $product->price,
                 //     'quantity'    => 1,
                 // ]
-            ],
+                // ],
             // 'return_url'   => 'https://domainanda.com/redirect',
             'expired_time' => (time() + (24 * 60 * 60)), // 24 jam
-            'signature'    => hash_hmac('sha256', $merchantCode.$merchantRef.$product->price, $privateKey)
+            'signature'    => hash_hmac('sha256', $merchantCode.$merchantRef.$amount, $privateKey)
         ];
 
         $curl = curl_init();
@@ -66,7 +78,7 @@ class TripayController extends Controller
 
         // dd($response);
         $response = json_decode($response)->data;
-        // dd($response);
+        dd($response);
 
         return $response ? $response:$error;
 
