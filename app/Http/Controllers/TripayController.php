@@ -114,7 +114,7 @@ class TripayController extends Controller
 
         // dd($response);
 
-        $response = json_decode($response)->data;
+        // $response = json_decode($response)->data;
 
         return  $response ? $response : $error;
 

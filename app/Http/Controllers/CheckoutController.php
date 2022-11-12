@@ -78,7 +78,14 @@ class CheckoutController extends Controller
 
             // echo $response ? $response : $error;
 
+            if(!json_decode($response)->data == true){
+                return redirect()->back()->with('errors','invalid payment method');
+            }
+
             $mas = json_decode($response)->data;
+
+
+
 
             // dd($mas);
 
@@ -88,6 +95,8 @@ class CheckoutController extends Controller
             // dd($code);
 
             $kal = $tripay->kalkulator($total,$code);
+
+
 
             // dd($kal);
 

@@ -288,17 +288,17 @@ body{
                     <div class="row">
                         <div class="col-md-12 col-lg-12">
                             <div class="items">
-                                <h2 style="margin:2%">Metode Pembayaran</h2>
+                                <center><h2 style="margin:2%" class="">Metode Pembayaran</h2></center>
 
 
 
 
                                    <div class="product">
-                                       <div class="row">
+                                       <div class="row d-felx justify-content-center">
                                         @foreach ($mas as $channel)
 
 
-                                           <div  class="col-md-3" style="padding-left: 2%; padding-right:2%">
+                                           <div  class="col-md-3 " style="padding-left: 2%; padding-right:2%">
 
                                             <form action="{{ url('transaction/store/') }}" method="post">
                                                 @csrf
@@ -309,7 +309,7 @@ body{
 
                                                 {{-- <input type="hidden" name="method" value="{{ $channel->code }}"> --}}
 
-                                                <div style="background-color: white; border:none;" type="submit" class="card">
+                                                <div style="background-color: white; border:none;" type="submit" class="card" >
                                                     {{-- <button href="" style="border: none"> --}}
 
                                                     <img class="card-img-top" src="{{ $channel->icon_url }}">

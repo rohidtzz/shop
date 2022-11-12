@@ -75,6 +75,22 @@ class CartController extends Controller
 
         // dd($price);
 
+        $cart = Cart::where('user_id',$user)->where('product_id',$id)->first();
+
+        // dd($cart);
+
+        if($cart){
+            // dd($cart);
+            // $cart = $cart[0];
+
+            $cek = Cart::where('product_id',$id)->where('user_id',$user)->update([
+                'qty' => $cart->qty+1,
+                'subtotal' => $cart->subtotal+$price
+            ]);
+
+            return redirect('/cart')->withSuccess('Add Product Cart Success');
+        }
+
         $cek = Cart::create([
             'qty' => 1,
             'subtotal' => $price,
@@ -82,9 +98,7 @@ class CartController extends Controller
             'product_id' => $id
 
         ]);
-
-
-        return redirect('/cart');
+        return redirect('/cart')->withSuccess('Add Product Cart Success');
     }
 
     public function delete($id)
@@ -138,7 +152,7 @@ class CartController extends Controller
 
         $users = Auth()->user()->id;
 
-        $cek = Cart::find($id)->first();
+        $cek = Cart::find($id);
         $pr = Product::find($id)->first()->price;
 
         if($cek->qty == 1){

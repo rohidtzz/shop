@@ -119,6 +119,14 @@ class TransactionController extends Controller
 
         $data = $tripay->detailTransaction($references);
 
+        // dd($data);
+
+        if(json_decode($data)->success == false){
+            return redirect()->back()->with('errors','reference not found');
+        }
+            $data = json_decode($data)->data;
+
+
         $total_fee = $data->total_fee;
         $total = $data->amount;
         $payment_method = $data->payment_method;
