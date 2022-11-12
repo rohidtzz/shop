@@ -86,7 +86,7 @@ class TransactionController extends Controller
 
         $tipa = $tripay->requestTransaction($method,$product);
 
-        // dd($tipa);
+        // dd($tipa->qr_url);
 
         Cart::where('user_id',$users)->delete();
 
@@ -97,7 +97,7 @@ class TransactionController extends Controller
                 'merchant_ref' => $tipa->merchant_ref,
                 'status' => $tipa->status,
                 'user_id' => $users,
-                'qr' => $tipa->qr_url
+                'qr' => $tipa->qr_url,
             ]);
         } else{
             Transaction::create([
@@ -136,7 +136,12 @@ class TransactionController extends Controller
         $total = $data->amount;
         $payment_method = $data->payment_method;
 
-        $qr = Transaction::where('reference',$references)->get();
+        $qr = Transaction::where('reference',$references)->get('qr')[0]->qr;
+
+        if($qr == null){
+            $qr = false;
+            return view('transaction.detail',compact('data','total_fee','total','payment_method','qr'));
+        }
 
 
 
