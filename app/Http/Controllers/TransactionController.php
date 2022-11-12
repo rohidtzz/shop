@@ -92,17 +92,19 @@ class TransactionController extends Controller
                 'merchant_ref' => $tipa->merchant_ref,
                 'status' => $tipa->status,
                 'user_id' => $users,
-                'user' => $tipa->qr_url
+                'qr' => $tipa->qr_url
+            ]);
+        } else{
+            Transaction::create([
+                'amount' => $tipa->amount,
+                'reference' => $tipa->reference,
+                'merchant_ref' => $tipa->merchant_ref,
+                'status' => $tipa->status,
+                'user_id' => $users
             ]);
         }
 
-        Transaction::create([
-            'amount' => $tipa->amount,
-            'reference' => $tipa->reference,
-            'merchant_ref' => $tipa->merchant_ref,
-            'status' => $tipa->status,
-            'user_id' => $users
-        ]);
+
 
         Order::where('user_id',$users)->delete();
 
@@ -138,7 +140,7 @@ class TransactionController extends Controller
 
         $users = Auth()->user()->id;
 
-        $data = Transaction::where('user_id',$users)->paginate(9);
+        $data = Transaction::where('user_id',$users)->paginate(10);
 
 
 
