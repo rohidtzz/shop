@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
             'username' => 'user',
             'password' => bcrypt('user'),
             'email' => 'user@gmail.com',
-            'no_hp' => '08777777',
+            'no_hp' => '087898780987',
             'role' => 'user'
         ]);
 

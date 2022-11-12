@@ -50,19 +50,24 @@ class TransactionController extends Controller
         // foreach($m as $o){
         //     $f = $o->qty;
         // }
+            $h = 0;
+
+            // dd($m);
 
         foreach($m as $k){
 
-
+            // dd($k);
                 $b[] = [
                     "name" => Product::find($k->product_id)->name,
-                    "price" => $k->subtotal,
-                    "quantity" => $k->qty
+                    "price" => Product::find($k->product_id)->price,
+                    "quantity" => 1
                 ];
 
 
 
         }
+
+        // dd($b);
 
         Order::create([
             'data' => json_encode($b),

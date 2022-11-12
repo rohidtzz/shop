@@ -23,6 +23,21 @@ class TripayController extends Controller
         }
         // dd($j);
 
+        // $fa = [
+        //     [
+        //         'name' => 'asd 1',
+        //         'price' => 200000,
+        //         'quantity' => 1
+        //     ],
+        //     [
+        //         'name' => 'asd 2',
+        //         'price' => 310000,
+        //         'quantity' => 2
+        //     ]
+        //     ];
+
+
+
 
         $apiKey       = env('TRIPAY_API_KEY');
         $privateKey   = env('TRIPAY_PRIVATE_KEY');

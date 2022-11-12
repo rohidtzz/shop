@@ -79,17 +79,17 @@ class CartController extends Controller
 
         // dd($cart);
 
-        if($cart){
-            // dd($cart);
-            // $cart = $cart[0];
+        // if($cart){
+        //     dd($cart);
+        //     $cart = $cart[0];
 
-            $cek = Cart::where('product_id',$id)->where('user_id',$user)->update([
-                'qty' => $cart->qty+1,
-                'subtotal' => $cart->subtotal+$price
-            ]);
+        //     $cek = Cart::where('product_id',$id)->where('user_id',$user)->update([
+        //         'qty' => $cart->qty+1,
+        //         'subtotal' => $cart->subtotal+$price
+        //     ]);
 
-            return redirect('/cart')->withSuccess('Add Product Cart Success');
-        }
+        //     return redirect('/cart')->withSuccess('Add Product Cart Success');
+        // }
 
         $cek = Cart::create([
             'qty' => 1,
@@ -121,23 +121,38 @@ class CartController extends Controller
 
         $users = Auth()->user()->id;
 
-        $cek = Cart::find($id)->first();
+        // $cek = Cart::find($id)->first();
 
-        $pr = Product::find($id)->first()->price;
+        $l = Product::find($id)->price;
+        // dd($l);
+
+        // $pr = Product::find($id)->price;
+
+        // dd($cek);
+
+
+        // dd($cek->subtotal+$pr);
 
 
 
-
-        if($cek->qty == 10){
-            return redirect()->back()->with('errors','Product tidak bisa melebihi batas');
-        }
+        // if($cek->qty == 10){
+        //     return redirect()->back()->with('errors','Product tidak bisa melebihi batas');
+        // }
 
         // dd($cek->price + $pr);
 
-        $cart = Cart::where('user_id',$users)->where('id',$id)->update([
-            'qty' => $cek->qty+1,
-            'subtotal' => $cek->subtotal+$pr
+        // $cart = Cart::where('user_id',$users)->where('id',$id)->update([
+        //     'qty' => $cek->qty+1,
+        //     'subtotal' => $cek->subtotal+$pr
+        // ]);
+
+        $cart = Cart::create([
+            'qty' => 1,
+            'subtotal' => $l,
+            'user_id' => $users,
+            'product_id' => $id
         ]);
+        // dd($cart);
 
         if(!$cart){
             return redirect()->back()->with('errors', 'Tamabah quantity Product Failed');
@@ -152,17 +167,19 @@ class CartController extends Controller
 
         $users = Auth()->user()->id;
 
-        $cek = Cart::find($id);
-        $pr = Product::find($id)->first()->price;
+        $cek = Cart::where('product_id',$id)->where('user_id',$users)->first();
+        // $pr = Product::find($id)->first()->price;
+        // dd($cek);
 
-        if($cek->qty == 1){
-            return redirect()->back()->with('errors','Product tidak bisa dikurangi');
-        }
+        // if($cek->qty == 1){
+        //     return redirect()->back()->with('errors','Product tidak bisa dikurangi');
+        // }
 
-        $cart = Cart::where('user_id',$users)->where('id',$id)->update([
-            'qty' => $cek->qty-1,
-            'subtotal' => $cek->subtotal-$pr
-        ]);
+        // $cart = Cart::where('user_id',$users)->where('id',$id)->update([
+        //     'subtotal' => $cek->subtotal-$pr
+        // ]);
+
+        $cart = Cart::where('user_id',$users)->where('id',$id)->delete();
 
 
 

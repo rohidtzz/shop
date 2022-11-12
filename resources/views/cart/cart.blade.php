@@ -227,7 +227,7 @@ body{
                                                                 <tr>
                                                                     <td><a class="btn" href="{{ url('/cart/minus/'.$data->id) }}">-</a></td>
                                                                     <td><input id="quantity" type="number" disabled value="{{ $data->qty }}" class="form-control quantity-input text-center"></td>
-                                                                    <td><a class="btn" href="{{ url('/cart/plus/'.$data->id) }}">+</a></td>
+                                                                    <td><a class="btn" href="{{ url('/cart/plus/'.$data->product_id) }}">+</a></td>
                                                                 </tr>
                                                             </table>
                                                         </center>
