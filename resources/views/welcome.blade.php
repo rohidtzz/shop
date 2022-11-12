@@ -209,7 +209,7 @@
                                             @if (Auth::Check())
                                                 <a class="btn btn-outline-dark mt-auto" href="{{ url('cart/'.$data->id.'/create') }}">Add to cart</a>
                                                 @else
-                                                <button class="btn btn-outline-dark mt-auto" data-bs-toggle="modal" data-bs-target="#login">Buy NOW!</button>
+                                                <button class="btn btn-outline-dark mt-auto" data-bs-toggle="modal" data-bs-target="#loginn">Buy NOW!</button>
                                             @endif
 
                                         </div>
@@ -269,6 +269,88 @@
 
 
                     </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="loginn" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form method="POST" action="{{ route('login') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-floating mb-3">
+                              <input name="username" type="text" class="form-control"  placeholder="username" required>
+                              <label for="floatingInput">Username / Email</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                              <input name="password" type="password" class="form-control" placeholder="Password" required>
+                              <label for="floatingPassword">Password</label>
+                            </div>
+                            <div class="d-grid">
+                              <button class="btn btn-primary text-uppercase fw-bold" type="submit">Sign in</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <p class="d-flex justify-content-start">Don't have an account? <button data-bs-toggle="modal" data-bs-target="#registerr" style="background-color: white;color:black;border:none"> Sign Up</button>  </p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="registerr" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-floating mb-3">
+                              <input name="username" type="text" class="form-control"  placeholder="name@example.com" required>
+                              <label for="floatingInput">Username</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input name="password" type="password" class="form-control"  placeholder="Password" required>
+                                <label for="floatingPassword">Password</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input name="email" type="email" class="form-control"  placeholder="name@example.com" required>
+                                <label for="floatingInput">Email</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input name="name" type="text" class="form-control"  placeholder="name@example.com" required>
+                                <label for="floatingInput">Nama Lengkap</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input name="no_hp" type="number" class="form-control"  placeholder="name@example.com" required>
+                                <label for="floatingInput">No Hp</label>
+                            </div>
+
+                            {{-- <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                <label for="floatingInput"></label>
+                            </div> --}}
+
+
+                            <div class="d-grid">
+                              <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign up</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                  </div>
                 </div>
             </div>
         </section>
