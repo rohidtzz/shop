@@ -113,7 +113,7 @@ class TransactionController extends Controller
 
         Order::where('user_id',$users)->delete();
 
-        return redirect('transaction/'.$tipa->reference);
+        return redirect('transaction/'.$tipa->reference)->withSuccess('Transaaction berhasil di buat');
 
     }
 
