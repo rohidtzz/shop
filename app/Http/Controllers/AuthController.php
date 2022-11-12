@@ -65,13 +65,13 @@ class AuthController extends Controller
         //     return redirect('/home');
         // }
 
-        return redirect('/');
+        return redirect('/')->withSuccess('Login Success');
     }
 
     public function logout()
     {
         Auth::logout();
 
-        return redirect()->back();
+        return redirect()->back()->withSuccess('Logout Success');
     }
 }

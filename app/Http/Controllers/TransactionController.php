@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\Cart;
+use App\Models\Transaction;
 
 class TransactionController extends Controller
 {
@@ -84,6 +85,27 @@ class TransactionController extends Controller
 
         Cart::where('user_id',$users)->delete();
 
+        if($tipa->payment_method == 'QRIS' || $tipa->payment_method == 'QRISC' || $tipa->payment_method == 'QRIS2'){
+            Transaction::create([
+                'amount' => $tipa->amount,
+                'reference' => $tipa->reference,
+                'merchant_ref' => $tipa->merchant_ref,
+                'status' => $tipa->status,
+                'user_id' => $users,
+                'user' => $tipa->qr_url
+            ]);
+        }
+
+        Transaction::create([
+            'amount' => $tipa->amount,
+            'reference' => $tipa->reference,
+            'merchant_ref' => $tipa->merchant_ref,
+            'status' => $tipa->status,
+            'user_id' => $users
+        ]);
+
+        Order::where('user_id',$users)->delete();
+
         return redirect('transaction/'.$tipa->reference);
 
     }
@@ -98,9 +120,30 @@ class TransactionController extends Controller
         $total_fee = $data->total_fee;
         $total = $data->amount;
         $payment_method = $data->payment_method;
-        // dd($data);
 
-        return view('transaction.detail',compact('data','total_fee','total','payment_method'));
+        $qr = Transaction::where('reference',$references)->get();
+
+
+
+
+
+
+        return view('transaction.detail',compact('data','total_fee','total','payment_method','qr'));
+
+    }
+
+
+    public function show()
+    {
+
+        $users = Auth()->user()->id;
+
+        $data = Transaction::where('user_id',$users)->paginate(9);
+
+
+
+        return view('transaction.daftar',compact('data'));
+
 
     }
 }

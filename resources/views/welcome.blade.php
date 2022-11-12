@@ -23,6 +23,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a></li>
+                        @if (Auth::Check())
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/transaction/daftar') }}">Transaction</a></li>
+                        <li class="nav-item"><a class="nav-link active"  type="submit" onclick="return confirm('yakin logout?');"  aria-current="page" href="{{ url('/logout') }}">Logout</a></li>
+                        @else
+                        @endif
+
                         {{-- <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
@@ -68,6 +74,9 @@
                                           <button class="btn btn-primary text-uppercase fw-bold" type="submit">Sign in</button>
                                         </div>
                                     </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <p class="d-flex justify-content-start">Don't have an account? <button data-bs-toggle="modal" data-bs-target="#register" style="background-color: white;color:black;border:none"> Sign Up</button>  </p>
                                 </div>
                               </div>
                             </div>
@@ -196,7 +205,13 @@
                                     <!-- Product actions-->
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                         <div class="text-center">
-                                            <a class="btn btn-outline-dark mt-auto" href="{{ url('cart/'.$data->id.'/create') }}">Add to cart</a>
+
+                                            @if (Auth::Check())
+                                                <a class="btn btn-outline-dark mt-auto" href="{{ url('cart/'.$data->id.'/create') }}">Add to cart</a>
+                                                @else
+                                                <button class="btn btn-outline-dark mt-auto" data-bs-toggle="modal" data-bs-target="#login">Buy NOW!</button>
+                                            @endif
+
                                         </div>
 
                                     </div>
@@ -231,7 +246,13 @@
                                             </div>
 
                                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ url('cart/'.$data->id.'/create') }}">Add to cart</a></div>
+                                                <div class="text-center">
+                                                    @if (Auth::Check())
+                                                <a class="btn btn-outline-dark mt-auto" href="{{ url('cart/'.$data->id.'/create') }}">Add to cart</a>
+                                                @else
+                                                <button class="btn btn-outline-dark mt-auto" data-bs-toggle="modal" data-bs-target="#login">Buy NOW!</button>
+                                            @endif
+                                                </div>
 
                                             </div>
 

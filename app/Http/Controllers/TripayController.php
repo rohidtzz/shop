@@ -24,9 +24,9 @@ class TripayController extends Controller
         // dd($j);
 
 
-        $apiKey       = 'DEV-rkmXt6EVoU1HKPimGZkaMQZ820HyTXlm1CNyEbfp';
-        $privateKey   = 'ZH3sJ-lGok9-l0GLk-1fF8h-UPBX7';
-        $merchantCode = 'T16098';
+        $apiKey       = env('TRIPAY_API_KEY');
+        $privateKey   = env('TRIPAY_PRIVATE_KEY');
+        $merchantCode = env('TRIPAY_MERCHANT_CODE');
         $merchantRef  = 'PX-'.time();
         $amount       = $j;
 
@@ -39,7 +39,7 @@ class TripayController extends Controller
             'amount'         => $amount,
             'customer_name'  => $user->name,
             'customer_email' => $user->email,
-            'customer_phone' => $user->no_hp,
+            'customer_phone' => (string)$user->no_hp,
             'order_items'    =>  $mk,
                 // [
                 //     'name'        => $product->name,
@@ -89,7 +89,7 @@ class TripayController extends Controller
     public function detailTransaction($references)
     {
 
-        $apiKey = 'DEV-rkmXt6EVoU1HKPimGZkaMQZ820HyTXlm1CNyEbfp';
+        $apiKey = env('TRIPAY_API_KEY');
 
         $payload = ['reference'	=> $references];
 
@@ -124,7 +124,7 @@ class TripayController extends Controller
     public function kalkulator($total,$code)
     {
 
-        $apiKey = 'DEV-rkmXt6EVoU1HKPimGZkaMQZ820HyTXlm1CNyEbfp';
+        $apiKey = env('TRIPAY_API_KEY');
 
         $payload = [
             'code' => $code,
@@ -154,6 +154,45 @@ class TripayController extends Controller
         $response = json_decode($response)->data;
 
         return  $response ? $response : $error;
+
+
+    }
+
+
+    public function daftarTransaction()
+    {
+
+
+        $apiKey = env('TRIPAY_API_KEY');
+
+        $payload = [
+            'page' => 1,
+            'per_page' => 25,
+        ];
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+        CURLOPT_FRESH_CONNECT  => true,
+        CURLOPT_URL            => 'https://tripay.co.id/api/merchant/transactions?'.http_build_query($payload),
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HEADER         => false,
+        CURLOPT_HTTPHEADER     => ['Authorization: Bearer '.$apiKey],
+        CURLOPT_FAILONERROR    => false,
+        CURLOPT_IPRESOLVE      => CURL_IPRESOLVE_V4
+        ]);
+
+        $response = curl_exec($curl);
+        $error = curl_error($curl);
+
+        curl_close($curl);
+
+        // echo empty($err) ? $response : $error;
+        $response = json_decode($response)->data;
+
+        return  $response ? $response : $error;
+
+
 
 
     }

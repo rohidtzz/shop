@@ -34,7 +34,7 @@ class CartController extends Controller
 
         }
 
-        $apiKey = 'DEV-rkmXt6EVoU1HKPimGZkaMQZ820HyTXlm1CNyEbfp';
+        $apiKey = env('TRIPAY_API_KEY');
 
         // $payload = ['code' => 'BRIVA'];
 

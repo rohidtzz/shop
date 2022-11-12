@@ -57,6 +57,7 @@ Route::group(['middleware' => ['role:user,staff,admin']], function () {
     Route::get('checkout/',[CheckoutController::class,'index']);
 
     Route::post('/transaction/store/',[TransactionController::class,'store']);
+    Route::get('/transaction/daftar',[TransactionController::class,'show']);
     Route::get('/transaction/{references}',[TransactionController::class,'detail']);
 
 
