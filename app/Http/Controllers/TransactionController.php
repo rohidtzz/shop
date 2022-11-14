@@ -143,7 +143,7 @@ class TransactionController extends Controller
 
         if($qr == null){
             $qr = false;
-            return view('transaction.detail',compact('data','total_fee','total','payment_method','qr'));
+            return view('transaction.detail',compact('data','total_fee','total','payment_method','qr','status'));
         }
 
 
