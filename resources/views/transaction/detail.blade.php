@@ -261,7 +261,7 @@ body{
                                                                         <span class="value badge bg-primary">status: {{ $status }}</span>
                                                                         @elseif ($status == "UNPAID")
                                                                         <span class="value badge bg-danger">{{ $status }}</span>
-                                                                        <p>expired Time: {{ gmdate("y-m-d h:i:s",$itmes->$expired_time) }}</p>
+                                                                        <p>expired Time: {{ gmdate("y-m-d h:i:s",$data->$expired_time) }}</p>
                                                                         @elseif ($status == "REFUND")
                                                                         <p>status: <span class="value badge bg-info">{{ $status }}</span></p>
                                                                         @elseif ($status == "EXPIRED")
