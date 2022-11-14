@@ -71,7 +71,11 @@ class CartController extends Controller
 
         $user = Auth()->user()->id;
 
-        $price = Product::find($id)->price;
+        $price = Product::find($id);
+
+        if($price == null){
+            return redirect()->back()->with('errors', 'invalid');
+        }
 
         // dd($price);
 
@@ -93,7 +97,7 @@ class CartController extends Controller
 
         $cek = Cart::create([
             'qty' => 1,
-            'subtotal' => $price,
+            'subtotal' => $price->price,
             'user_id' => $user,
             'product_id' => $id
 
@@ -124,6 +128,10 @@ class CartController extends Controller
         // $cek = Cart::find($id)->first();
 
         $l = Product::find($id)->price;
+
+        if($l){
+            return redirect()->back()->with('errors', 'invalid');
+        }
         // dd($l);
 
         // $pr = Product::find($id)->price;
