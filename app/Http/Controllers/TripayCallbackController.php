@@ -9,7 +9,7 @@ use App\Models\Transaction;
 class TripayCallbackController extends Controller
 {
     // Isi dengan private key anda
-    protected $privateKey = 'DEV-rkmXt6EVoU1HKPimGZkaMQZ820HyTXlm1CNyEbfp';
+    protected $privateKey = 'ZH3sJ-lGok9-l0GLk-1fF8h-UPBX7';
 
     public function handle(Request $request)
     {
@@ -33,6 +33,8 @@ class TripayCallbackController extends Controller
 
         $data = json_decode($json);
 
+        // dd($data);
+
         if (JSON_ERROR_NONE !== json_last_error()) {
             return Response::json([
                 'success' => false,
@@ -50,7 +52,7 @@ class TripayCallbackController extends Controller
         */
 
         if (1 === (int) $data->is_closed_payment) {
-            $Transaction = Transaction::where('reference', $uniqueRef)
+            $Transaction = Transaction::where('merchant_ref', $uniqueRef)
                 ->where('status', '!=', 'PAID')
                 ->first();
                 // dd($Transaction);

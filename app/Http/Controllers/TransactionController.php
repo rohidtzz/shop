@@ -138,6 +138,9 @@ class TransactionController extends Controller
 
         $qr = Transaction::where('reference',$references)->get('qr')[0]->qr;
 
+        $status = Transaction::where('reference',$references)->first()->status;
+        // dd($status);
+
         if($qr == null){
             $qr = false;
             return view('transaction.detail',compact('data','total_fee','total','payment_method','qr'));
@@ -148,7 +151,9 @@ class TransactionController extends Controller
 
 
 
-        return view('transaction.detail',compact('data','total_fee','total','payment_method','qr'));
+
+
+        return view('transaction.detail',compact('data','total_fee','total','payment_method','qr','status'));
 
     }
 

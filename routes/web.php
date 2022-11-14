@@ -61,11 +61,11 @@ Route::group(['middleware' => ['role:user,staff,admin']], function () {
     Route::get('/transaction/daftar',[TransactionController::class,'show']);
     Route::get('/transaction/{references}',[TransactionController::class,'detail']);
 
-    route::post('/callback', [TripayCallbackController::class,'handle']);
+
 
 
 });
 
 
-
+route::post('/callback', [TripayCallbackController::class,'handle']);
 

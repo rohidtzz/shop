@@ -13,6 +13,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'https://shop.hidtzz.my.id/callback',
-        'http://shop.hidtzz.my.id/callback'
+        'http://shop.hidtzz.my.id/callback',
     ];
 }

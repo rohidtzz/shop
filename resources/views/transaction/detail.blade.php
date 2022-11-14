@@ -257,24 +257,19 @@ body{
                                                                 <p href="#">{{ $items->name }}</p>
                                                                 <div class="product-info">
 
-                                                                    @if ($data->status == "PAID")
-                                                                        <span class="value badge bg-primary">status: {{ $data->status }}</span>
-                                                                        <p>expired Time: {{ gmdate("y-m-d h:i:s",$data->expired_time) }}</p>
-                                                                        @elseif ($data->status == "UNPAID")
-                                                                        <span class="value badge bg-danger">{{ $data->status }}</span>
-                                                                        <p>expired Time: {{ gmdate("y-m-d h:i:s",$data->expired_time) }}</p>
-                                                                        @elseif ($data->status == "REFUND")
-                                                                        <p>status: <span class="value badge bg-info">{{ $data->status }}</span></p>
-                                                                        <p>expired Time: {{ gmdate("y-m-d h:i:s",$data->expired_time) }}</p>
-                                                                        @elseif ($data->status == "EXPIRED")
-                                                                        <span class="value badge bg-danger">{{ $data->status }}</span>
-                                                                        <p>expired Time: {{ gmdate("y-m-d h:i:s",$data->expired_time) }}</p>
-                                                                        @elseif ($data->status == "FAILED")
-                                                                        <span class="value badge bg-danger">{{ $data->status }}</span>
-                                                                        <p>expired Time: {{ gmdate("y-m-d h:i:s",$data->expired_time) }}</p>
+                                                                    @if ($status == "PAID")
+                                                                        <span class="value badge bg-primary">status: {{ $status }}</span>
+                                                                        @elseif ($status == "UNPAID")
+                                                                        <span class="value badge bg-danger">{{ $status }}</span>
+                                                                        <p>expired Time: {{ gmdate("y-m-d h:i:s",$expired_time) }}</p>
+                                                                        @elseif ($status == "REFUND")
+                                                                        <p>status: <span class="value badge bg-info">{{ $status }}</span></p>
+                                                                        @elseif ($status == "EXPIRED")
+                                                                        <span class="value badge bg-danger">{{ $status }}</span>
+                                                                        @elseif ($status == "FAILED")
+                                                                        <span class="value badge bg-danger">{{ $status }}</span>
                                                                         @else
-                                                                        <span class="value">{{ $data->status }}</span>
-                                                                        <p>expired Time: {{ gmdate("y-m-d h:i:s",$data->expired_time) }}</p>
+                                                                        <span class="value">{{ $status }}</span>
                                                                     @endif
 
                                                                     {{-- <div>Display: <span class="value">5 inch</span></div>
@@ -321,32 +316,40 @@ body{
 			 					<h3>Summary</h3>
 
 			 					<div class="summary-item"><span class="text">Fee payment method {{ $payment_method }}</span><span class="price">Rp. {{ number_format($total_fee) }}</span></div>
-			 					<div class="summary-item"><span class="text">Jumlah yang harus dibayar</span><span style="font-weight: bold;font-size:22px" class="price">Rp. {{ number_format($total) }}</span></div>
+                                @if ($status == "PAID")
+                                <div class="summary-item"><span class="text">Jumlah yang sudah dibayar</span><span style="font-weight: bold;font-size:22px" class="price">Rp. {{ number_format($total) }}</span></div>
+                                @else
+                                <div class="summary-item"><span class="text">Jumlah yang harus dibayar</span><span style="font-weight: bold;font-size:22px" class="price">Rp. {{ number_format($total) }}</span></div>
+                                @endif
+
 			 					{{-- <a type="button" href="{{ url('/checkout') }}" class="btn btn-primary btn-lg btn-block">Checkout</a> --}}
-                                 <h4 style="margin-top:20px">Instruksi pembayaran</h4>
-                                 @foreach ($data->instructions as $ins)
+                                @if ($status == "PAID")
+                                    @else
+                                    <h4 style="margin-top:20px">Instruksi pembayaran</h4>
+                                    @foreach ($data->instructions as $ins)
 
 
-                                 <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                      {{ $ins->title }}
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        @foreach ($ins->steps as $in)
-                                      <li class="dropdown-item disabled" style="color: black" >{{ $loop->iteration }}.{!! $in !!}</li>
-                                      @endforeach
+                                    <div class="dropdown">
+                                       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                         {{ $ins->title }}
+                                       </button>
+                                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                           @foreach ($ins->steps as $in)
+                                         <li class="dropdown-item disabled" style="color: black" >{{ $loop->iteration }}.{!! $in !!}</li>
+                                         @endforeach
 
-                                    </ul>
-                                  </div>
-                                  @endforeach
+                                       </ul>
+                                     </div>
+                                     @endforeach
 
-                                  @if($qr)
-                                  @if($data->status == "UNPAID")
-                                  <p class="text-center" style="margin-top: 10px"> {!! QrCode::size(100)->generate( $qr ); !!} </p>
-                                  @else
-                                  @endif
-                                  @else
-                                  @endif
+                                     @if($qr)
+                                     @if($data->status == "UNPAID")
+                                     <p class="text-center" style="margin-top: 10px"> {!! QrCode::size(100)->generate( $qr ); !!} </p>
+                                     @else
+                                     @endif
+                                     @else
+                                     @endif
+                                @endif
 
 				 			</div>
 			 			</div>
