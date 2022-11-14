@@ -9,6 +9,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
 
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TripayCallbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,8 @@ Route::group(['middleware' => ['role:user,staff,admin']], function () {
     Route::post('/transaction/store/',[TransactionController::class,'store']);
     Route::get('/transaction/daftar',[TransactionController::class,'show']);
     Route::get('/transaction/{references}',[TransactionController::class,'detail']);
+
+    route::post('/callback', [TripayCallbackController::class,'handle']);
 
 
 });
