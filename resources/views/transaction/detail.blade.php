@@ -234,13 +234,26 @@ body{
 	 				<div class="row">
 	 					<div class="col-md-12 col-lg-8">
 	 						<div class="items">
-                                <h2 style="margin:2%">Product</h2>
+                                <h6 style="margin:2%">Status : @if ($status == "PAID")
+                                    <span class="value badge bg-primary">status: {{ $status }}</span>
+                                    @elseif ($status == "UNPAID")
+                                    <span class="value badge bg-danger">{{ $status }}</span>
+                                    <p id="time">expired : {{ Carbon\Carbon::parse(gmdate("Y-m-d H:i",$exp))->translatedFormat('l, d F Y H:i') }}</p>
+                                    @elseif ($status == "REFUND")
+                                    <p>status: <span class="value badge bg-info">{{ $status }}</span></p>
+                                    @elseif ($status == "EXPIRED")
+                                    <span class="value badge bg-danger">{{ $status }}</span>
+                                    @elseif ($status == "FAILED")
+                                    <span class="value badge bg-danger">{{ $status }}</span>
+                                    @else
+                                    <span class="value">{{ $status }}</span>
+                                @endif</h6>
 
 
 
                                 {{-- @foreach ($data as $ref) --}}
 
-                                    @foreach ($data->order_items as $items)
+                                    @foreach ($datas as $items)
 
 
 
@@ -254,10 +267,12 @@ body{
                                                     <div class="row">
                                                         <div class="col-md-5 product-name">
                                                             <div class="product-name">
-                                                                <p href="#">{{ $items->name }}</p>
+                                                                <p href="#">{{ App\Models\Product::find($items->product_id)->name  }}</p>
                                                                 <div class="product-info">
-
-                                                                    @if ($status == "PAID")
+                                                                    <p>
+                                                                        {{ App\Models\Product::find($items->product_id)->description  }}
+                                                                    </p>
+                                                                    {{-- @if ($status == "PAID")
                                                                         <span class="value badge bg-primary">status: {{ $status }}</span>
                                                                         @elseif ($status == "UNPAID")
                                                                         <span class="value badge bg-danger">{{ $status }}</span>
@@ -270,7 +285,7 @@ body{
                                                                         <span class="value badge bg-danger">{{ $status }}</span>
                                                                         @else
                                                                         <span class="value">{{ $status }}</span>
-                                                                    @endif
+                                                                    @endif --}}
 
                                                                     {{-- <div>Display: <span class="value">5 inch</span></div>
                                                                     <div>RAM: <span class="value">4GB</span></div>
@@ -285,7 +300,7 @@ body{
                                                             <table class="" >
                                                                 <tr>
                                                                     {{-- <td><a class="btn" href="">-</a></td> --}}
-                                                                    <td><input id="quantity" type="number" disabled value="{{ $items->quantity }}" class="form-control quantity-input text-center"></td>
+                                                                    <td><input id="quantity" type="number" disabled value="{{ $items->qty }}" class="form-control quantity-input text-center"></td>
                                                                     {{-- <td><a class="btn" href="">+</a></td> --}}
                                                                 </tr>
                                                             </table>
@@ -296,7 +311,7 @@ body{
                                                         </div>
                                                         <div class="col-md-3 price">
                                                             {{-- <label for="quantity">Price: </label><br> --}}
-                                                            <span class="fst-italic" style="padding-bottom: 50px">&nbsp; Rp.{{ number_format($items->price) }}</span>
+                                                            <span class="fst-italic" style="padding-bottom: 50px">&nbsp; Rp.{{ number_format($items->subtotal) }}</span>
                                                         </div>
                                                     </div>
                                                 </div>

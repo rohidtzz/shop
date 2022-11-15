@@ -9,6 +9,8 @@ use App\Models\Order;
 use App\Models\Cart;
 use App\Models\Transaction;
 
+use Carbon\Carbon;
+
 class TransactionController extends Controller
 {
     //
@@ -33,6 +35,18 @@ class TransactionController extends Controller
 
         $cart = Cart::where('user_id',$users)->get();
 
+        // dd($cart);
+
+        foreach($cart as $g){
+            $d[] = [
+                'qty' =>$g->qty,
+                'subtotal' => $g->subtotal,
+                'product_id' => $g->product_id
+            ];
+        }
+
+        // dd($d);
+
         foreach($product as $l){
 
             $j[] = Product::find($l->product_id);
@@ -50,53 +64,69 @@ class TransactionController extends Controller
         // foreach($m as $o){
         //     $f = $o->qty;
         // }
-            $h = 0;
 
-            // dd($m);
+
+
+
+            // dd($b);
 
         foreach($m as $k){
 
             // dd($k);
-                $b[] = [
+
+            for($x = 0; $x < $k->qty; $x++){
+                $datas[] = [
                     "name" => Product::find($k->product_id)->name,
                     "price" => Product::find($k->product_id)->price,
                     "quantity" => 1
                 ];
+            }
+                // $b[] = [
+                //     "name" => Product::find($k->product_id)->name,
+                //     "price" => Product::find($k->product_id)->price,
+                //     "quantity" => 1
+                // ];
 
 
 
         }
 
-        // dd($b);
+        // dd($product);
 
-        Order::create([
-            'data' => json_encode($b),
-            'user_id' => $users,
-            'status' => 'pending'
-        ]);
+        // Order::create([
+        //     'data' => json_encode($b),
+        //     'user_id' => $users,
+        //     'status' => 'pending'
+        // ]);
 
 
 
-        $product = Order::where('user_id', $users)->get();
+        // $product = Order::where('user_id', $users)->get();
 
         $method = $request->method;
         // dd($request->all());
 
         $tripay = new TripayController;
 
-        $tipa = $tripay->requestTransaction($method,$product);
+        $tipa = $tripay->requestTransaction($method,$datas);
 
         // dd($tipa->qr_url);
+
+        // dd($data);
 
         Cart::where('user_id',$users)->delete();
 
         if($tipa->payment_method == 'QRIS' || $tipa->payment_method == 'QRISC' || $tipa->payment_method == 'QRIS2'){
+
+
             Transaction::create([
                 'amount' => $tipa->amount,
                 'reference' => $tipa->reference,
                 'merchant_ref' => $tipa->merchant_ref,
+                'data' => json_encode($d),
                 'status' => $tipa->status,
                 'user_id' => $users,
+                'expired' => $tipa->expired_time,
                 'qr' => $tipa->qr_url,
             ]);
         } else{
@@ -104,14 +134,16 @@ class TransactionController extends Controller
                 'amount' => $tipa->amount,
                 'reference' => $tipa->reference,
                 'merchant_ref' => $tipa->merchant_ref,
+                'data' => json_encode($d),
                 'status' => $tipa->status,
+                'expired' => $tipa->expired_time,
                 'user_id' => $users
             ]);
         }
 
 
 
-        Order::where('user_id',$users)->delete();
+        // Order::where('user_id',$users)->delete();
 
         return redirect('transaction/'.$tipa->reference)->withSuccess('Transaction berhasil di buat');
 
@@ -139,21 +171,17 @@ class TransactionController extends Controller
         $qr = Transaction::where('reference',$references)->get('qr')[0]->qr;
 
         $status = Transaction::where('reference',$references)->first()->status;
-        // dd($status);
+        $datas = Transaction::where('reference',$references)->get()[0];
+        $exp = $datas->expired;
+        $datas = json_decode($datas->data);
+
+        // dd(Carbon::parse(gmdate("Y-m-d H:i",$exp))->translatedFormat('l, d F Y H:i'));
 
         if($qr == null){
             $qr = false;
-            return view('transaction.detail',compact('data','total_fee','total','payment_method','qr','status'));
+            return view('transaction.detail',compact('data','total_fee','total','payment_method','qr','status','datas','exp'));
         }
-
-
-
-
-
-
-
-
-        return view('transaction.detail',compact('data','total_fee','total','payment_method','qr','status'));
+        return view('transaction.detail',compact('data','total_fee','total','payment_method','qr','status','datas','exp'));
 
     }
 

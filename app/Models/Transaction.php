@@ -15,7 +15,9 @@ class Transaction extends Model
         'reference',
         'merchant_ref',
         'status',
+        'data',
         'user_id',
+        'expired',
         'qr'
     ];
 

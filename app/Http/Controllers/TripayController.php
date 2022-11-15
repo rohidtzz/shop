@@ -8,14 +8,14 @@ class TripayController extends Controller
 {
     //
 
-    public function requestTransaction($method,$product)
+    public function requestTransaction($method,$datas)
     {
 
-        $ms = json_decode($product,true)[0];
-        $mk = json_decode($ms['data'],true);
-
+        // $ms = json_decode($datas,true);
+        // $mk = json_decode($ms,true);
+        // dd($datas);
         $j = 0;
-        foreach($mk as $k){
+        foreach($datas as $k){
 
             $j += $k['price'];
 
@@ -55,7 +55,7 @@ class TripayController extends Controller
             'customer_name'  => $user->name,
             'customer_email' => $user->email,
             'customer_phone' => (string)$user->no_hp,
-            'order_items'    =>  $mk,
+            'order_items'    =>  $datas,
                 // [
                 //     'name'        => $product->name,
                 //     'price'       => $product->price,
