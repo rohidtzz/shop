@@ -41,7 +41,8 @@ class TransactionController extends Controller
             $d[] = [
                 'qty' =>$g->qty,
                 'subtotal' => $g->subtotal,
-                'product_id' => $g->product_id
+                'product_id' => $g->product_id,
+                'image' => Product::find($g->product_id)->image
             ];
         }
 
@@ -78,7 +79,8 @@ class TransactionController extends Controller
                 $datas[] = [
                     "name" => Product::find($k->product_id)->name,
                     "price" => Product::find($k->product_id)->price,
-                    "quantity" => 1
+                    "quantity" => 1,
+                    "image_url"=> Product::find($k->product_id)->image
                 ];
             }
                 // $b[] = [

@@ -181,14 +181,14 @@
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="row gx-4 gx-lg-5  row-cols-md-3 row-cols-xl-4 justify-content-center">
                     @foreach ($product as $data )
                         <div class="k">
                             <div class="col mb-5">
                                 <div class="card h-100">
                                     <!-- Product image-->
                                     <button style="border: none" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $data->id }}">
-                                    <img class="kk img-thumbnail" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                                    <img class="kk img-thumbnail" src="{{ asset('product/img/'.$data->image) }}" alt="{{ $data->image }}" />
                                     </button>
                                     <!-- Product details-->
                                     <div class="card-body p-4">
@@ -225,12 +225,16 @@
                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="card">
+                                    <div class="card ">
                                         <div class="card-body">
 
                                             <div class="card-image">
                                                 <span class="card-notify-badge"></span>
-                                                <img class="img-fluid" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="Alternate Text" />
+                                                {{-- <div class="justify-contet-center"> --}}
+                                                    <center>
+                                                    <img class="img-fluid" src="{{ asset('product/img/'.$data->image) }}" alt="{{ $data->image }}"/>
+                                                </center>
+                                                {{-- </div> --}}
                                             </div>
                                                 <br>
                                             <div class="row">
@@ -250,7 +254,7 @@
                                                     @if (Auth::Check())
                                                 <a class="btn btn-outline-dark mt-auto" href="{{ url('cart/'.$data->id.'/create') }}">Add to cart</a>
                                                 @else
-                                                <button class="btn btn-outline-dark mt-auto" data-bs-toggle="modal" data-bs-target="#login">Buy NOW!</button>
+                                                <button class="btn btn-outline-dark mt-auto" data-bs-toggle="modal" data-bs-target="#loginn">Buy NOW!</button>
                                             @endif
                                                 </div>
 

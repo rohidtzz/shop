@@ -21,6 +21,7 @@ class ProductSeeder extends Seeder
             'name' => 'baju 1',
             'description' => 'baju 1 ini sangat bagus',
             'price' => 100000,
+            'image' => '1.jpg',
             'stock' => 10,
         ]);
 
@@ -28,6 +29,7 @@ class ProductSeeder extends Seeder
             'name' => 'baju 2',
             'description' => 'baju 2 ini sangat bagus',
             'price' => 110000,
+            'image' => '2.jpg',
             'stock' => 11,
         ]);
 
@@ -35,6 +37,7 @@ class ProductSeeder extends Seeder
             'name' => 'baju 3',
             'description' => 'baju 3 ini sangat bagus',
             'price' => 120000,
+            'image' => '3.jpg',
             'stock' => 12,
         ]);
 
@@ -42,6 +45,7 @@ class ProductSeeder extends Seeder
             'name' => 'baju 4',
             'description' => 'baju 4 ini sangat bagus',
             'price' => 130000,
+            'image' => '4.jpg',
             'stock' => 13,
         ]);
     }

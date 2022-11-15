@@ -260,7 +260,7 @@ body{
                                     <div class="product">
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <img class="img-fluid mx-auto d-block image" style="padding: 30px" src="{{ asset('blok/image.jpg') }}">
+                                                <img class="img-fluid mx-auto d-block image" style="padding: 30px" src="{{ asset('product/img/'.$items->image) }}" alt="{{ $items->image }}">
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="info">

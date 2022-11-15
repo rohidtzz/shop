@@ -167,7 +167,7 @@ class CartController extends Controller
         if($pr== null || $cek == null){
             return redirect()->back()->with('errors', 'invalid');
         }
-        dd($pr);
+        // dd($pr);
 
         if($cek->qty == 1){
             return redirect()->back()->with('errors','Product tidak bisa dikurangi');
