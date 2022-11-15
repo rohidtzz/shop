@@ -202,7 +202,7 @@ body{
                                     <div class="product">
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <img class="img-fluid mx-auto d-block image" style="padding: 30px" src="{{ asset('blok/image.jpg') }}">
+                                                <img class="img-fluid mx-auto d-block image" style="padding: 30px" src="{{ asset('product/img/'.App\Models\Product::find($data->product_id)->image ) }}" alt="{{ $data->image }}">
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="info">
@@ -224,9 +224,9 @@ body{
                                                             <center>
                                                             <table class="" >
                                                                 <tr>
-                                                                    <td><a class="btn" href="{{ url('/cart/minus/'.$data->id) }}">-</a></td>
+                                                                    <td><a class="btn" href="{{ url('/cart/minus/'.$data->product_id) }}">-</a></td>
                                                                     <td><input id="quantity" type="number" disabled value="{{ $data->qty }}" class="form-control quantity-input text-center"></td>
-                                                                    <td><a class="btn" href="{{ url('/cart/plus/'.$data->id) }}">+</a></td>
+                                                                    <td><a class="btn" href="{{ url('/cart/plus/'.$data->product_id) }}">+</a></td>
                                                                 </tr>
                                                             </table>
                                                         </center>

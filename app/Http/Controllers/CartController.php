@@ -186,7 +186,7 @@ class CartController extends Controller
             return redirect()->back()->with('errors', 'Kurangin Product Failed');
         }
 
-        return redirect()->back()->withSuccess('kurangin Product Cart Success');
+        return redirect()->back()->withSuccess('kurangin Product Success');
 
     }
 }
