@@ -157,11 +157,16 @@ class TransactionController extends Controller
         $data = $tripay->detailTransaction($references);
 
         // dd($data);
+        $data_kita = Transaction::where('reference',$references)->get('qr');
 
         if(json_decode($data)->success == false){
             return redirect()->back()->with('errors','reference not found');
         }
             $data = json_decode($data)->data;
+
+            if(!$data_kita){
+                return redirect()->back()->with('errors','reference not found');
+            }
 
 
         $total_fee = $data->total_fee;

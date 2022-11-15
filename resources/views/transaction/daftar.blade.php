@@ -192,7 +192,7 @@ body{
 
             <th scope="col">Status</th>
             <th scope="col">amount</th>
-            <th scope="col">Detail</th>
+            <th scope="col">Product</th>
           </tr>
         </thead>
         <tbody>
