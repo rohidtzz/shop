@@ -198,7 +198,7 @@ class TransactionController extends Controller
 
         $users = Auth()->user()->id;
 
-        $data = Transaction::where('user_id',$users)->paginate(10);
+        $data = Transaction::where('user_id',$users)->orderBy('created_at','DESC')->paginate(10);
 
 
 
