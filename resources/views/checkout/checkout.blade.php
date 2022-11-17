@@ -177,7 +177,6 @@ body{
             </div>
         </div>
     </nav>
-    </nav>
 
 	<main class="page" style="margin-top: 4% ">
 	 	<section class="shopping-cart dark">

@@ -11,6 +11,10 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TripayCallbackController;
 
+use App\Http\Controllers\ShippingController;
+
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,9 +66,22 @@ Route::group(['middleware' => ['role:user,staff,admin']], function () {
     Route::get('/transaction/{references}',[TransactionController::class,'detail']);
 
 
+    route::get('alamat',function(){
+        return view('alamat');
+    });
+
+    // route::post('alamat/store',function(Request $request){
+    //     // return view('alamat');
+    //     dd($request->city);
+    // });
+
+    route::get('/city',[ShippingController::class,'city']);
 
 
 });
+
+route::post('/cost',[ShippingController::class,'cost']);
+
 
 
 route::post('/callback', [TripayCallbackController::class,'handle']);

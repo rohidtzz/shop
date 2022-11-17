@@ -181,9 +181,9 @@ body{
     </nav>
     <main class="page" style="margin-top: 4% ">
         <section class="shopping-cart dark">
-            <div class="container">
+            <div class="container ">
     <div class="table-responsive">
-    <table class="table">
+    <table class="table ">
         <thead>
           <tr>
             <th scope="col">#</th>

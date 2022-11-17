@@ -29,7 +29,7 @@ class ProductSeeder extends Seeder
             'name' => 'baju 2',
             'description' => 'baju 2 ini sangat bagus',
             'price' => 110000,
-            'image' => '2.jpg',
+            'image' => '5.jpg',
             'stock' => 11,
         ]);
 

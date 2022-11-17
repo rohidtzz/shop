@@ -14,5 +14,8 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'https://shop.hidtzz.my.id/callback',
         'http://shop.hidtzz.my.id/callback',
+        'http://shop.hidtzz.my.id/cost',
+        'https://shop.hidtzz.my.id/cost',
+        'http://localhost:8000/cost',
     ];
 }
