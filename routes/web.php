@@ -42,12 +42,14 @@ Route::get('/logout', [AuthController::class,'logout']);
 Route::group(['middleware' => ['role:admin']], function () {
 
     Route::get('/cart',[CartController::class,'index']);
+    Route::get('/transaction/all',[TransactionController::class,'show_all']);
 
 });
 
 Route::group(['middleware' => ['role:staff,admin']], function () {
 
     Route::get('/cart',[CartController::class,'index']);
+    Route::get('/transaction/all',[TransactionController::class,'show_all']);
 
 });
 

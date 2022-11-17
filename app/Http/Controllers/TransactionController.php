@@ -206,4 +206,18 @@ class TransactionController extends Controller
 
 
     }
+
+    public function show_all()
+    {
+
+        // $users = Auth()->user()->id;
+
+        $data = Transaction::paginate(10);
+        // dd($data);
+
+
+        return view('transaction.all',compact('data'));
+
+
+    }
 }
