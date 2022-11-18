@@ -25,6 +25,19 @@ class ShippingController extends Controller
         return response()->json($raja, 200);
     }
 
+    public function city_id($id)
+    {
+
+        $rajaongkir = new RajaOngkirController();
+
+        $raja = $rajaongkir->city_id($id)->results;
+
+        // dd($raja);
+
+
+        return response()->json($raja, 200);
+    }
+
     public function cost(Request $request)
     {
         $rajaongkir = new RajaOngkirController();
@@ -42,8 +55,8 @@ class ShippingController extends Controller
 
         $origin = 456;
         $destinasi = $address->city_id;
-        $berat = 200;
-        $kurir = $request->kurir;
+        $berat = 1000;
+        $kurir = "jne";
 
         $raja = $rajaongkir->cost($origin,$destinasi,$berat,$kurir);
 

@@ -78,11 +78,12 @@ Route::group(['middleware' => ['role:user,staff,admin']], function () {
     // });
 
     route::get('/city',[ShippingController::class,'city']);
+    route::get('/city/{id}',[ShippingController::class,'city_id']);
 
 
 });
 
-route::post('/cost',[ShippingController::class,'cost']);
+route::get('/cost',[ShippingController::class,'cost']);
 
 
 

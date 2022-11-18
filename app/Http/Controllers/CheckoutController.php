@@ -8,6 +8,7 @@ use App\Models\Cart;
 use App\Models\Product;
 
 use App\Models\Order;
+use App\Models\Address;
 
 use Illuminate\Support\Facades\Input;
 
@@ -100,13 +101,13 @@ class CheckoutController extends Controller
 
             // dd($kal);
 
+            $address = Address::where('user_id',$users)->first();
 
 
 
 
 
-
-        return view('checkout.checkout',compact('product','total','mas','kal'));
+        return view('checkout.checkout',compact('product','total','mas','kal','address'));
 
     }
 

@@ -186,7 +186,126 @@ body{
         </div>
     </nav>
 
-	<main class="page" style="margin-top: 4% ">
+    <main class="page" style="margin-top: 4% ">
+        <section class="shopping-cart dark">
+
+            <div class="container">
+               {{-- <div class="block-heading">
+                 <h2>Shopping Cart</h2>
+                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+               </div> --}}
+
+               <div class="content">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="items">
+                               <h2 style="margin:2%">Alamat dan Pengiriman</h2>
+                                <div class="product">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row" style="margin:10px">
+
+                                               <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlTextarea1">Example textarea</label>
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1" disabled rows="3">{{ $address->alamat }}</textarea>
+                                                  </div>
+                                               </div>
+                                                <input type="hidden" name="city_id" value="{{ $address->city_id }}">
+                                               <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlInput1">Kota: </label>
+                                                    <input disabled  id="city" name="city" class="form-control" id="exampleFormControlSelect1">
+
+                                                      {{-- </input> --}}
+                                                    {{-- <input type="email" value="{{$address->city_id }}" class="form-control" id="exampleFormControlInput1"> --}}
+                                                  </div>
+                                               </div>
+
+                                               <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlInput1">Ekspedisi</label>
+                                                    <input type="text" value="jne" disabled class="form-control" id="exampleFormControlInput1">
+                                                  </div>
+                                               </div>
+
+                                               <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlInput1">Jenis Layanan</label>
+                                                    <input type="text" name="layanan" value="OKE" disabled class="form-control" id="exampleFormControlInput1">
+                                                  </div>
+                                               </div>
+
+                                               <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlInput1">Biaya Pengiriman</label>
+                                                    <input type="number"  name="cost" disabled class="form-control" id="exampleFormControlInput1">
+                                                  </div>
+                                               </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </section>
+   </main>
+
+   <script>
+    $(document).ready(function(){
+        let city = $("input[name=city_id]").val();
+        // console.log(city);
+    $.ajax({
+          url:"/city/"+city,
+          type: "GET",
+          dataType: "JSON",
+          success: function(data){
+              $('input[name="city"]').val(data.city_name);
+            //   $('select[name="city"]').append('<option value="'+ data.city_id+'">'+ data.type + ' '+ data.city_name +'</option>');
+            //$('select[name="province"]').append('<option value="'+ data[i].province_id+'">'+ data[i].province +'</option>');
+
+          },
+          error: function(data){
+           alert("Terjadi Kesalahan!");
+         }
+    });
+    let total = $("input[name=total]").val();
+        // console.log(total);
+        let span = document.getElementById("totall");
+        let pengiriman = document.getElementById("pengiriman");
+        // console.log(span.textContent);
+    $.ajax({
+          url:"/cost/",
+          type: "GET",
+          dataType: "JSON",
+          success: function(data){
+            // console.log(parseInt(data.value)+parseInt(total))
+            let k = parseInt(data.value)+parseInt(total);
+            const rupiah = (number)=>{
+                return new Intl.NumberFormat("en-US").format(number);
+            }
+              span.textContent = ("Rp. "+rupiah(k));
+              $('input[name="cost"]').val(data.value);
+              pengiriman.textContent = ("Rp. "+rupiah(data.value));
+            //   $('select[name="city"]').append('<option value="'+ data.city_id+'">'+ data.type + ' '+ data.city_name +'</option>');
+            //$('select[name="province"]').append('<option value="'+ data[i].province_id+'">'+ data[i].province +'</option>');
+
+          },
+          error: function(data){
+           alert("Terjadi Kesalahan!");
+         }
+    });
+});
+   </script>
+	<main class="page">
 	 	<section class="shopping-cart dark">
 
 	 		<div class="container">
@@ -249,6 +368,8 @@ body{
                                                 </div>
                                             </div>
 
+
+
                                         </div>
                                     </div>
 
@@ -272,7 +393,10 @@ body{
 
                                     @endforeach --}}
                                 </span></div>
-			 					<div class="summary-item"><span class="text">Total</span><span style="font-weight: bold;font-size:25px" class="price">Rp. {{ number_format($total+$kal[0]->total_fee->customer) }}</span></div>
+                                <div class="summary-item"><span class="text">Biaya Pengiriman</span><span class="price" id="pengiriman"></span></div>
+			 					<div class="summary-item"><span class="text">Total</span><span style="font-weight: bold;font-size:25px" id="totall" class="price">
+                                </span></div>
+                                <input type="hidden" name="total" value="{{ $total+$kal[0]->total_fee->customer }}">
 			 					{{-- <a type="button" href="{{ url('/checkout') }}" class="btn btn-primary btn-lg btn-block">Checkout</a> --}}
 				 			</div>
 			 			</div>
@@ -304,13 +428,11 @@ body{
                                        <div class="row d-felx justify-content-center">
                                         @foreach ($mas as $channel)
 
-
+                                        <form action="{{ url('transaction/store/') }}" method="post">
                                            <div  class="col-md-3 " style="padding-left: 2%; padding-right:2%">
-
-                                            <form action="{{ url('transaction/store/') }}" method="post">
                                                 @csrf
 
-
+                                                <input type="hidden"  name="cost" >
                                                 {{-- <input type="hidden" name="product_id" value="{{ $m }}"> --}}
 
 

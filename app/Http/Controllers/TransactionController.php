@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\Cart;
 use App\Models\Transaction;
+use App\Models\Shipping;
 
 use Carbon\Carbon;
 
@@ -93,8 +94,23 @@ class TransactionController extends Controller
 
         }
 
-        // dd($product);
+        $push = [
+            "name" => "jne",
+            "quantity" => 1,
+            "price" => $request->cost,
+        ];
 
+
+
+        $asd = array_push($datas,$push);
+
+        // dd($datas);
+
+        foreach($datas as $dat){
+            $kjs[] = $dat;
+        }
+
+        // dd($kjs);
         // Order::create([
         //     'data' => json_encode($b),
         //     'user_id' => $users,
@@ -110,18 +126,20 @@ class TransactionController extends Controller
 
         $tripay = new TripayController;
 
-        $tipa = $tripay->requestTransaction($method,$datas);
+        $tipa = $tripay->requestTransaction($method,$kjs);
 
         // dd($tipa->qr_url);
 
         // dd($data);
+
+
 
         Cart::where('user_id',$users)->delete();
 
         if($tipa->payment_method == 'QRIS' || $tipa->payment_method == 'QRISC' || $tipa->payment_method == 'QRIS2'){
 
 
-            Transaction::create([
+            $trans = Transaction::create([
                 'amount' => $tipa->amount,
                 'reference' => $tipa->reference,
                 'merchant_ref' => $tipa->merchant_ref,
@@ -131,8 +149,17 @@ class TransactionController extends Controller
                 'expired' => $tipa->expired_time,
                 'qr' => $tipa->qr_url,
             ]);
+
+            $shipping = Shipping::create([
+                'data' => json_encode($push),
+                'status' => "proses",
+                // 'cost' => $request->cost,
+                'cost' => $request->cost,
+                'user_id' => $users,
+                'transaction_id'=> $trans->id
+            ]);
         } else{
-            Transaction::create([
+            $trans = Transaction::create([
                 'amount' => $tipa->amount,
                 'reference' => $tipa->reference,
                 'merchant_ref' => $tipa->merchant_ref,
@@ -140,6 +167,14 @@ class TransactionController extends Controller
                 'status' => $tipa->status,
                 'expired' => $tipa->expired_time,
                 'user_id' => $users
+            ]);
+            $shipping = Shipping::create([
+                'data' => json_encode($push),
+                'status' => "proses",
+                // 'cost' => $request->cost,
+                'cost' => $request->cost,
+                'user_id' => $users,
+                'transaction_id'=> $trans->id
             ]);
         }
 
@@ -182,13 +217,18 @@ class TransactionController extends Controller
         $exp = $datas->expired;
         $datas = json_decode($datas->data);
 
+        $transs = Transaction::where('reference',$references)->first();
+        $pengiriman = Shipping::where('transaction_id',$transs->id)->first();
+
+        // dd($pengiriman);
+
         // dd(Carbon::parse(gmdate("Y-m-d H:i",$exp))->translatedFormat('l, d F Y H:i'));
 
         if($qr == null){
             $qr = false;
-            return view('transaction.detail',compact('data','total_fee','total','payment_method','qr','status','datas','exp'));
+            return view('transaction.detail',compact('data','total_fee','total','payment_method','qr','status','datas','exp','pengiriman'));
         }
-        return view('transaction.detail',compact('data','total_fee','total','payment_method','qr','status','datas','exp'));
+        return view('transaction.detail',compact('data','total_fee','total','payment_method','qr','status','datas','exp','pengiriman'));
 
     }
 
