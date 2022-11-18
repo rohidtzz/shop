@@ -77,11 +77,12 @@ Route::group(['middleware' => ['role:user,staff,admin']], function () {
     //     dd($request->city);
     // });
 
-    route::get('/city',[ShippingController::class,'city']);
-    route::get('/city/{id}',[ShippingController::class,'city_id']);
+
 
 
 });
+route::get('/city',[ShippingController::class,'city']);
+route::get('/city/{id}',[ShippingController::class,'city_id']);
 
 route::get('/cost',[ShippingController::class,'cost']);
 
