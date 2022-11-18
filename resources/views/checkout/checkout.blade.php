@@ -452,20 +452,6 @@ body{
        </section>
    </main>
    <script>
-    // $(window).load(function(){
-    //     $("preloader").delay(200).fadeOut("slow");
-    // });
-    $(document).ready( function() {
-
-/*
- * ... all of your jQuery ...
- */
-
-// At the bottom of your jQuery code, put this:
-$('#loadingMask').delay(3500).fadeOut();
-});
-   </script>
-   <script>
     $(document).ready(function(){
         let city = $("input[name=city_id]").val();
         // console.log(city);
@@ -501,6 +487,7 @@ $('#loadingMask').delay(3500).fadeOut();
                 span.textContent = ("Rp. "+rupiah(k));
                 $('input[name="cost"]').val(data.value);
                 pengiriman.textContent = ("Rp. "+rupiah(data.value));
+                $('#loadingMask').fadeOut();
                 //   $('select[name="city"]').append('<option value="'+ data.city_id+'">'+ data.type + ' '+ data.city_name +'</option>');
                 //$('select[name="province"]').append('<option value="'+ data[i].province_id+'">'+ data[i].province +'</option>');
 
