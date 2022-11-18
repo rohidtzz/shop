@@ -13,6 +13,7 @@
   src="https://code.jquery.com/jquery-3.2.1.js"
   integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
   crossorigin="anonymous"></script>
+
     <style>
         .shopping-cart{
 	padding-bottom: 50px;
@@ -153,7 +154,10 @@ body{
 
     </style>
 </head>
-<body>
+<body >
+    {{-- <div id="preloader"></div> --}}
+    <div id="loadingMask" style="width: 100%; height: 100vh; position: fixed;z-index: 999; background:url('{{ asset('blok/f.gif') }}') 50% no-repeat #fff;"></div>
+    {{-- <img src="" alt="" srcset=""> --}}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand" href="#!">Hidtzz Store</a>
@@ -388,7 +392,7 @@ body{
                                         @foreach ($mas as $channel)
 
                                         <form action="{{ url('transaction/store/') }}" method="post">
-                                           <div  class="col-md-3 " style="padding-left: 2%; padding-right:2%">
+                                           <center><div  class="col-md-3 " style="padding-left: 2%; padding-right:2%">
                                                 @csrf
 
                                                 <input type="hidden"  name="cost" >
@@ -418,7 +422,7 @@ body{
 
 
 
-                                            </div>
+                                            </div></center>
 
 
                                             @endforeach
@@ -447,6 +451,20 @@ body{
             </div>
        </section>
    </main>
+   <script>
+    // $(window).load(function(){
+    //     $("preloader").delay(200).fadeOut("slow");
+    // });
+    $(document).ready( function() {
+
+/*
+ * ... all of your jQuery ...
+ */
+
+// At the bottom of your jQuery code, put this:
+$('#loadingMask').delay(3500).fadeOut();
+});
+   </script>
    <script>
     $(document).ready(function(){
         let city = $("input[name=city_id]").val();
