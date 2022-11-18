@@ -9,6 +9,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	{{-- <link rel="stylesheet" href="assets/css/style.css"> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
     <style>
         .shopping-cart{
 	padding-bottom: 50px;
@@ -259,52 +263,7 @@ body{
        </section>
    </main>
 
-   <script>
-    $(document).ready(function(){
-        let city = $("input[name=city_id]").val();
-        // console.log(city);
-    $.ajax({
-          url:"/city/"+city,
-          type: "GET",
-          dataType: "JSON",
-          success: function(data){
-              $('input[name="city"]').val(data.city_name);
-            //   $('select[name="city"]').append('<option value="'+ data.city_id+'">'+ data.type + ' '+ data.city_name +'</option>');
-            //$('select[name="province"]').append('<option value="'+ data[i].province_id+'">'+ data[i].province +'</option>');
 
-          },
-          error: function(data){
-           alert("Terjadi Kesalahan!");
-         }
-    });
-    let total = $("input[name=total]").val();
-        // console.log(total);
-        let span = document.getElementById("totall");
-        let pengiriman = document.getElementById("pengiriman");
-        // console.log(span.textContent);
-    $.ajax({
-          url:"/cost/",
-          type: "GET",
-          dataType: "JSON",
-          success: function(data){
-            // console.log(parseInt(data.value)+parseInt(total))
-            let k = parseInt(data.value)+parseInt(total);
-            const rupiah = (number)=>{
-                return new Intl.NumberFormat("en-US").format(number);
-            }
-              span.textContent = ("Rp. "+rupiah(k));
-              $('input[name="cost"]').val(data.value);
-              pengiriman.textContent = ("Rp. "+rupiah(data.value));
-            //   $('select[name="city"]').append('<option value="'+ data.city_id+'">'+ data.type + ' '+ data.city_name +'</option>');
-            //$('select[name="province"]').append('<option value="'+ data[i].province_id+'">'+ data[i].province +'</option>');
-
-          },
-          error: function(data){
-           alert("Terjadi Kesalahan!");
-         }
-    });
-});
-   </script>
 	<main class="page">
 	 	<section class="shopping-cart dark">
 
@@ -488,6 +447,52 @@ body{
             </div>
        </section>
    </main>
+   <script>
+    $(document).ready(function(){
+        let city = $("input[name=city_id]").val();
+        // console.log(city);
+        $.ajax({
+            url:"/city/"+city,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data){
+                $('input[name="city"]').val(data.city_name);
+                //   $('select[name="city"]').append('<option value="'+ data.city_id+'">'+ data.type + ' '+ data.city_name +'</option>');
+                //$('select[name="province"]').append('<option value="'+ data[i].province_id+'">'+ data[i].province +'</option>');
+
+            },
+            error: function(data){
+            alert("Terjadi Kesalahan!");
+            }
+        });
+        let total = $("input[name=total]").val();
+            // console.log(total);
+            let span = document.getElementById("totall");
+            let pengiriman = document.getElementById("pengiriman");
+            // console.log(span.textContent);
+        $.ajax({
+            url:"/cost/",
+            type: "GET",
+            dataType: "JSON",
+            success: function(data){
+                // console.log(parseInt(data.value)+parseInt(total))
+                let k = parseInt(data.value)+parseInt(total);
+                const rupiah = (number)=>{
+                    return new Intl.NumberFormat("en-US").format(number);
+                }
+                span.textContent = ("Rp. "+rupiah(k));
+                $('input[name="cost"]').val(data.value);
+                pengiriman.textContent = ("Rp. "+rupiah(data.value));
+                //   $('select[name="city"]').append('<option value="'+ data.city_id+'">'+ data.type + ' '+ data.city_name +'</option>');
+                //$('select[name="province"]').append('<option value="'+ data[i].province_id+'">'+ data[i].province +'</option>');
+
+            },
+            error: function(data){
+            alert("Terjadi Kesalahan!");
+            }
+        });
+    });
+   </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     @include('sweetalert::alert')
 </body>
