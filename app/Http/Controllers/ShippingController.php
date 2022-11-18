@@ -15,7 +15,7 @@ class ShippingController extends Controller
     public function city()
     {
 
-        $rajaongkir = new RajaOngkirController();
+        $rajaongkir = new RajaongkirController();
 
         $raja = $rajaongkir->city()->results;
 
@@ -28,7 +28,7 @@ class ShippingController extends Controller
     public function city_id($id)
     {
 
-        $rajaongkir = new RajaOngkirController();
+        $rajaongkir = new RajaongkirController();
 
         $raja = $rajaongkir->city_id($id)->results;
 
@@ -40,7 +40,7 @@ class ShippingController extends Controller
 
     public function cost(Request $request)
     {
-        $rajaongkir = new RajaOngkirController();
+        $rajaongkir = new RajaongkirController();
 
         $users = Auth()->user()->id;
 
