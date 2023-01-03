@@ -370,7 +370,7 @@ body{
 
                                      @if($qr)
                                      @if($data->status == "UNPAID")
-                                     <p class="text-center" style="margin-top: 10px"> {!! QrCode::size(100)->generate( $qr ); !!} </p>
+                                     <p class="text-center" style="margin-top: 10px"><img src="{{ $qr }}" alt=""> </p>
                                      @else
                                      @endif
                                      @else
