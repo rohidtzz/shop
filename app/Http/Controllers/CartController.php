@@ -43,7 +43,7 @@ class CartController extends Controller
 
         curl_setopt_array($curl, array(
         CURLOPT_FRESH_CONNECT  => true,
-        CURLOPT_URL            => 'https://tripay.co.id/api-sandbox/merchant/payment-channel',
+        CURLOPT_URL            => 'https://tripay.co.id/api/merchant/payment-channel',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_HEADER         => false,
         CURLOPT_HTTPHEADER     => ['Authorization: Bearer '.$apiKey],
