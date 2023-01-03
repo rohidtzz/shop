@@ -9,7 +9,7 @@ use App\Models\Transaction;
 class TripayCallbackController extends Controller
 {
     // Isi dengan private key anda
-    protected $privateKey = 'ZH3sJ-lGok9-l0GLk-1fF8h-UPBX7';
+    protected $privateKey = 'B6Jro-nzrUT-URWcf-nGj8w-MFLh7';
 
     public function handle(Request $request)
     {
