@@ -59,7 +59,7 @@ class CheckoutController extends Controller
 
             curl_setopt_array($curl, array(
             CURLOPT_FRESH_CONNECT  => true,
-            CURLOPT_URL            => 'https://tripay.co.id/api-sandbox/merchant/payment-channel?'.http_build_query($payload),
+            CURLOPT_URL            => 'https://tripay.co.id/api/merchant/payment-channel?'.http_build_query($payload),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER         => false,
             CURLOPT_HTTPHEADER     => ['Authorization: Bearer '.$apiKey],
@@ -72,13 +72,30 @@ class CheckoutController extends Controller
 
             curl_close($curl);
 
+            foreach(json_decode($response)->data as $s){
+                if($s->code == $code){
+                    $mas = [
+                        'code' => $code,
+                        'icon_url' => $s->icon_url,
+                    ];
+                } else{
+
+                }
+            }
+
+            // dd($ma);
+            // dd(json_decode($response)->data);
+
             // echo $response ? $response : $error;
 
             if(!json_decode($response)->data == true){
                 return redirect()->back()->with('errors','invalid payment method');
             }
 
-            $mas = json_decode($response)->data;
+            // $mas = json_encode($ma);
+
+
+            // $mas = json_decode($response)->data;
 
 
 

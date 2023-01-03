@@ -386,7 +386,7 @@ body{
 
                                    <div class="product">
                                        <div class="row d-felx justify-content-center">
-                                        @foreach ($mas as $channel)
+                                        {{-- @foreach ($mas as $channel) --}}
 
                                         <form action="{{ url('transaction/store/') }}" method="post">
                                            <center><div  class="col-md-3 " style="padding-left: 2%; padding-right:2%">
@@ -401,16 +401,16 @@ body{
                                                 <div style="background-color: white; border:none;" type="submit" class="card" >
                                                     {{-- <button href="" style="border: none"> --}}
 
-                                                    <img class="card-img-top" src="{{ $channel->icon_url }}">
+                                                    <img class="card-img-top" src="{{ $mas['icon_url'] }}">
                                                     {{-- </button> --}}
 
                                                     <div class="card-body">
                                                         <div class="card-text">
                                                             {{-- <p></p> --}}
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="hidden" name="method" value="{{ $channel->code }}" checked="checked">
+                                                                <input class="form-check-input" type="hidden" name="method" value="{{ $mas['code'] }}" checked="checked">
 
-                                                                <label class="form-check-label" for="inlineRadio2">bayar dengan {{ $channel->code }}</label>
+                                                                <label class="form-check-label" for="inlineRadio2">bayar dengan {{ $mas['code'] }}</label>
                                                               </div>
 
                                                         </div>
@@ -422,7 +422,7 @@ body{
                                             </div></center>
 
 
-                                            @endforeach
+                                            {{-- @endforeach --}}
 
 
                                        </div>
