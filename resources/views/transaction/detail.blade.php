@@ -152,7 +152,8 @@ body{
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#!">Hidtzz Store</a>
+            {{-- <a class="navbar-brand" href="#!">Hidtzz Store</a> --}}
+            <a class="navbar-brand" href="{{ url('/') }}">Sezione Tangerag</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -161,6 +162,7 @@ body{
 
                         @if (Auth()->user()->role == "admin" || Auth()->user()->role == "staff")
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/transaction/all') }}">Transaction</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/admin/product') }}">Product</a></li>
                         <li class="nav-item"><a class="nav-link active"  type="submit" onclick="return confirm('yakin logout?');"  aria-current="page" href="{{ url('/logout') }}">Logout</a></li>
                         @else
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/transaction/daftar') }}">Transaction</a></li>
@@ -339,7 +341,7 @@ body{
 			 					<h3>Summary</h3>
 
 			 					<div class="summary-item"><span class="text">Fee payment method {{ $payment_method }}</span><span class="price">Rp. {{ number_format($total_fee) }}</span></div>
-                                 <div class="summary-item"><span class="text">Biaya Pengiriman JNE OKE</span><span class="price">Rp. {{ number_format($pengiriman->cost) }}</span></div>
+                                 {{-- <div class="summary-item"><span class="text">Biaya Pengiriman JNE OKE</span><span class="price">Rp. {{ number_format($pengiriman->cost) }}</span></div> --}}
                                 @if ($status == "PAID")
                                 <div class="summary-item"><span class="text">Jumlah yang sudah dibayar</span><span style="font-weight: bold;font-size:22px" class="price">Rp. {{ number_format($total) }}</span></div>
                                 @else

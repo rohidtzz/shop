@@ -25,11 +25,6 @@ class CheckoutController extends Controller
             return redirect()->back()->with('errors','invalid');
         }
 
-        // if(!Order::where('user_id',$users)->where('status', 'pending')->get()){
-        //     return redirect()->back()->with('errors','invalid');
-        // }
-
-
 
         // $product = Cart::where('user_id',$users)->get();
         $product = Cart::with('product')->where('user_id',$users)->get();
@@ -56,7 +51,7 @@ class CheckoutController extends Controller
 
         }
 
-                    $apiKey = env('TRIPAY_API_KEY');
+            $apiKey = env('TRIPAY_API_KEY');
 
             $payload = ['code' => $code];
 
@@ -101,13 +96,13 @@ class CheckoutController extends Controller
 
             // dd($kal);
 
-            $address = Address::where('user_id',$users)->first();
+            // $address = Address::where('user_id',$users)->first();
 
 
 
 
 
-        return view('checkout.checkout',compact('product','total','mas','kal','address'));
+        return view('checkout.checkout',compact('product','total','mas','kal'));
 
     }
 

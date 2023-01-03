@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 
 use App\Models\Cart;
+use App\Models\Transaction;
 
 use Auth;
 
@@ -57,7 +58,17 @@ class CartController extends Controller
 
         // echo $response ? $response : $error;
 
-        $mas = json_decode($response)->data;
+        $mas = json_decode($response);
+
+        if($mas->success == true){
+            $mas = json_decode($response)->data;
+        } else {
+            $mas = json_decode($response);
+        }
+
+        // dd($mas->success);
+
+
 
         // dd($harga);
 
@@ -73,6 +84,14 @@ class CartController extends Controller
 
         $price = Product::find($id);
 
+        $trans = Transaction::find(Auth()->user()->id);
+
+
+        if($trans){
+            return redirect()->back()->with('errors', '1 akun hanya bisa beli 1');
+        }
+        // dd($trans);
+
         if($price == null){
             return redirect()->back()->with('errors', 'invalid');
         }
@@ -87,12 +106,12 @@ class CartController extends Controller
             // dd($cart);
             // $cart = $cart[0];
 
-            $cek = Cart::where('product_id',$id)->where('user_id',$user)->update([
-                'qty' => $cart->qty+1,
-                'subtotal' => $cart->subtotal+$price->price
-            ]);
+            // $cek = Cart::where('product_id',$id)->where('user_id',$user)->update([
+            //     'qty' => $cart->qty+1,
+            //     'subtotal' => $cart->subtotal+$price->price
+            // ]);
 
-            return redirect('/cart')->withSuccess('Add Product Cart Success');
+            return redirect('/cart')->withSuccess('Add Product hanya bisa 1');
         }
 
         $cek = Cart::create([
@@ -102,6 +121,7 @@ class CartController extends Controller
             'product_id' => $id
 
         ]);
+
         return redirect('/cart')->withSuccess('Add Product Cart Success');
     }
 

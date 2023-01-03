@@ -156,11 +156,12 @@ body{
 </head>
 <body >
     {{-- <div id="preloader"></div> --}}
-    <div id="loadingMask" style="width: 100%; height: 100vh; position: fixed;z-index: 999; background:url('{{ asset('blok/f.gif') }}') 50% no-repeat #fff;"></div>
+    {{-- <div id="loadingMask" style="width: 100%; height: 100vh; position: fixed;z-index: 999; background:url('{{ asset('blok/f.gif') }}') 50% no-repeat #fff;"></div> --}}
     {{-- <img src="" alt="" srcset=""> --}}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#!">Hidtzz Store</a>
+            {{-- <a class="navbar-brand" href="#!">Hidtzz Store</a> --}}
+            <a class="navbar-brand" href="{{ url('/') }}">Sezione Tangerag</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -169,6 +170,7 @@ body{
 
                         @if (Auth()->user()->role == "admin" || Auth()->user()->role == "staff")
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/transaction/all') }}">Transaction</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/admin/product') }}">Product</a></li>
                         <li class="nav-item"><a class="nav-link active"  type="submit" onclick="return confirm('yakin logout?');"  aria-current="page" href="{{ url('/logout') }}">Logout</a></li>
                         @else
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/transaction/daftar') }}">Transaction</a></li>
@@ -194,14 +196,10 @@ body{
         </div>
     </nav>
 
-    <main class="page" style="margin-top: 4% ">
+    {{-- <main class="page" style="margin-top: 4% ">
         <section class="shopping-cart dark">
 
             <div class="container">
-               {{-- <div class="block-heading">
-                 <h2>Shopping Cart</h2>
-                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
-               </div> --}}
 
                <div class="content">
                     <div class="row">
@@ -225,8 +223,7 @@ body{
                                                     <label for="exampleFormControlInput1">Kota: </label>
                                                     <input disabled  id="city" name="city" class="form-control" id="exampleFormControlSelect1">
 
-                                                      {{-- </input> --}}
-                                                    {{-- <input type="email" value="{{$address->city_id }}" class="form-control" id="exampleFormControlInput1"> --}}
+
                                                   </div>
                                                </div>
 
@@ -265,7 +262,7 @@ body{
                 </div>
             </div>
        </section>
-   </main>
+   </main> --}}
 
 
 	<main class="page">
@@ -313,9 +310,9 @@ body{
                                                             <center>
                                                             <table class="" >
                                                                 <tr>
-                                                                    <td><a class="btn" href="{{ url('/cart/minus/'.$data->product_id) }}">-</a></td>
+                                                                    {{-- <td><a class="btn" href="{{ url('/cart/minus/'.$data->product_id) }}">-</a></td> --}}
                                                                     <td><input id="quantity" type="number" disabled value="{{ $data->qty }}" class="form-control quantity-input text-center"></td>
-                                                                    <td><a class="btn" href="{{ url('/cart/plus/'.$data->product_id) }}">+</a></td>
+                                                                    {{-- <td><a class="btn" href="{{ url('/cart/plus/'.$data->product_id) }}">+</a></td> --}}
                                                                 </tr>
                                                             </table>
                                                         </center>
@@ -356,9 +353,9 @@ body{
 
                                     @endforeach --}}
                                 </span></div>
-                                <div class="summary-item"><span class="text">Biaya Pengiriman</span><span class="price" id="pengiriman"></span></div>
+                                {{-- <div class="summary-item"><span class="text">Biaya Pengiriman</span><span class="price" id="pengiriman"></span></div> --}}
 			 					<div class="summary-item"><span class="text">Total</span><span style="font-weight: bold;font-size:25px" id="totall" class="price">
-                                </span></div>
+                                   Rp. {{ number_format($total+$kal[0]->total_fee->customer) }}</span></div>
                                 <input type="hidden" name="total" value="{{ $total+$kal[0]->total_fee->customer }}">
 			 					{{-- <a type="button" href="{{ url('/checkout') }}" class="btn btn-primary btn-lg btn-block">Checkout</a> --}}
 				 			</div>
@@ -451,18 +448,15 @@ body{
             </div>
        </section>
    </main>
-   <script>
+   {{-- <script>
     $(document).ready(function(){
         let city = $("input[name=city_id]").val();
-        // console.log(city);
         $.ajax({
             url:"/city/"+city,
             type: "GET",
             dataType: "JSON",
             success: function(data){
                 $('input[name="city"]').val(data.city_name);
-                //   $('select[name="city"]').append('<option value="'+ data.city_id+'">'+ data.type + ' '+ data.city_name +'</option>');
-                //$('select[name="province"]').append('<option value="'+ data[i].province_id+'">'+ data[i].province +'</option>');
 
             },
             error: function(data){
@@ -470,16 +464,13 @@ body{
             }
         });
         let total = $("input[name=total]").val();
-            // console.log(total);
             let span = document.getElementById("totall");
             let pengiriman = document.getElementById("pengiriman");
-            // console.log(span.textContent);
         $.ajax({
             url:"/cost/",
             type: "GET",
             dataType: "JSON",
             success: function(data){
-                // console.log(parseInt(data.value)+parseInt(total))
                 let k = parseInt(data.value)+parseInt(total);
                 const rupiah = (number)=>{
                     return new Intl.NumberFormat("en-US").format(number);
@@ -488,8 +479,6 @@ body{
                 $('input[name="cost"]').val(data.value);
                 pengiriman.textContent = ("Rp. "+rupiah(data.value));
                 $('#loadingMask').fadeOut();
-                //   $('select[name="city"]').append('<option value="'+ data.city_id+'">'+ data.type + ' '+ data.city_name +'</option>');
-                //$('select[name="province"]').append('<option value="'+ data[i].province_id+'">'+ data[i].province +'</option>');
 
             },
             error: function(data){
@@ -497,7 +486,7 @@ body{
             }
         });
     });
-   </script>
+   </script> --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     @include('sweetalert::alert')
 </body>

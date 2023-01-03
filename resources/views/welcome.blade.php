@@ -6,6 +6,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Hidtzz Store - Homepage </title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -18,7 +19,8 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#!">Hidtzz Store</a>
+                <a class="navbar-brand" href="{{ url('/') }}">Sezione Tangerag</a>
+                {{-- <img src="{{ asset('tgr.png') }}" width="35" height="35" alt=""> --}}
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -27,6 +29,7 @@
 
                         @if (Auth()->user()->role == "admin" || Auth()->user()->role == "staff")
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/transaction/all') }}">Transaction</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/admin/product') }}">Product</a></li>
                         <li class="nav-item"><a class="nav-link active"  type="submit" onclick="return confirm('yakin logout?');"  aria-current="page" href="{{ url('/logout') }}">Logout</a></li>
                         @else
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/transaction/daftar') }}">Transaction</a></li>
@@ -72,7 +75,7 @@
                                         @csrf
                                         <div class="form-floating mb-3">
                                           <input name="username" type="text" class="form-control"  placeholder="username" required>
-                                          <label for="floatingInput">Username / Email</label>
+                                          <label for="floatingInput">Username</label>
                                         </div>
                                         <div class="form-floating mb-3">
                                           <input name="password" type="password" class="form-control" placeholder="Password" required>
@@ -179,9 +182,11 @@
         </nav>
         <!-- Header-->
         <header class="bg-dark py-5">
+            {{-- <img style="width: 100%; height:1%"  src="{{ asset('tgr.png') }}" alt=""> --}}
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Hidtzz Store</h1>
+                    <img src="{{ asset('tgr.png') }}" width="100" height="100" alt="">
+                    <h1 class="display-4 fw-bolder">Ultras Garuda Sezione Tangerang</h1>
                     {{-- <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p> --}}
                 </div>
             </div>
@@ -205,6 +210,7 @@
                                             <h5 class="fw-bolder">{{ $data->name }}</h5>
                                             <!-- Product price-->
                                             <p class="fst-italic">Rp. {{ number_format($data->price)  }}</p>
+                                            <p id="stok" stock class="fst-italic"></p>
                                         </div>
                                         <div class="text-center">
                                             <p class="text-justify"> {{ $data->description}}</p>
@@ -254,6 +260,8 @@
                                                 <div class="col-6 text-center">
                                                     <br>
                                                     <p class="fst-italic">Rp. {{ number_format($data->price) }}</p>
+                                                    <p id="stokk" class="fst-italic"></p>
+
                                                 </div>
                                             </div>
 
@@ -296,7 +304,7 @@
                             @csrf
                             <div class="form-floating mb-3">
                               <input name="username" type="text" class="form-control"  placeholder="username" required>
-                              <label for="floatingInput">Username / Email</label>
+                              <label for="floatingInput">Username</label>
                             </div>
                             <div class="form-floating mb-3">
                               <input name="password" type="password" class="form-control" placeholder="Password" required>
@@ -366,9 +374,39 @@
                 </div>
             </div>
         </section>
+        <script>
+            $(document).ready(function(){
+
+                // selesai()
+                setInterval(() => {
+                    show()
+                }, 1000);
+            });
+
+            function show(){
+
+            $.ajax({
+                url: "/stock",
+                type: "GET",
+                success: function(data){
+                    $('#stok').empty()
+                    $('#stokk').empty()
+
+                    let kata = `stock: ${data[0].stock}`
+
+                    document.getElementById("stok").innerHTML = kata
+                    document.getElementById("stokk").innerHTML = kata
+                },
+                error: function(data){
+                    alert("Terjadi Kesalahan!");
+                }
+            });
+
+            }
+        </script>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Hidtzz Store @php echo date('Y') @endphp</p></div>
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Ultras Garuda Sezione Tangerang @php echo date('Y') @endphp</p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

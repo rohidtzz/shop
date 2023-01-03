@@ -33,10 +33,9 @@ class TransactionController extends Controller
         // }
 
         $product = Cart::with('product')->where('user_id',$users)->get();
+        // dd($product);
 
         $cart = Cart::where('user_id',$users)->get();
-
-        // dd($cart);
 
         foreach($cart as $g){
             $d[] = [
@@ -94,15 +93,15 @@ class TransactionController extends Controller
 
         }
 
-        $push = [
-            "name" => "jne",
-            "quantity" => 1,
-            "price" => $request->cost,
-        ];
+        // $push = [
+        //     "name" => "jne",
+        //     "quantity" => 1,
+        //     "price" => $request->cost,
+        // ];
 
 
 
-        $asd = array_push($datas,$push);
+        // $asd = array_push($datas,$push);
 
         // dd($datas);
 
@@ -150,14 +149,14 @@ class TransactionController extends Controller
                 'qr' => $tipa->qr_url,
             ]);
 
-            $shipping = Shipping::create([
-                'data' => json_encode($push),
-                'status' => "proses",
-                // 'cost' => $request->cost,
-                'cost' => $request->cost,
-                'user_id' => $users,
-                'transaction_id'=> $trans->id
-            ]);
+            // $shipping = Shipping::create([
+            //     'data' => json_encode($push),
+            //     'status' => "proses",
+            //     // 'cost' => $request->cost,
+            //     'cost' => $request->cost,
+            //     'user_id' => $users,
+            //     'transaction_id'=> $trans->id
+            // ]);
         } else{
             $trans = Transaction::create([
                 'amount' => $tipa->amount,
@@ -168,19 +167,26 @@ class TransactionController extends Controller
                 'expired' => $tipa->expired_time,
                 'user_id' => $users
             ]);
-            $shipping = Shipping::create([
-                'data' => json_encode($push),
-                'status' => "proses",
-                // 'cost' => $request->cost,
-                'cost' => $request->cost,
-                'user_id' => $users,
-                'transaction_id'=> $trans->id
-            ]);
+            // $shipping = Shipping::create([
+            //     'data' => json_encode($push),
+            //     'status' => "proses",
+            //     // 'cost' => $request->cost,
+            //     'cost' => $request->cost,
+            //     'user_id' => $users,
+            //     'transaction_id'=> $trans->id
+            // ]);
         }
 
 
 
         // Order::where('user_id',$users)->delete();
+
+        $stoc = Product::find(1);
+        // dd($stock);
+
+        Product::find(1)->update([
+            'stock' => $stoc->stock-1
+        ]);
 
         return redirect('transaction/'.$tipa->reference)->withSuccess('Transaction berhasil di buat');
 
