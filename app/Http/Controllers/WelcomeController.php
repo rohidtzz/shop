@@ -22,9 +22,9 @@ class WelcomeController extends Controller
 
         $cart = Cart::where('user_id',$users)->count();
 
-        return view('welcome', compact('product','cart'));
+        return view('home.index', compact('product','cart'));
         }
-        return view('welcome', compact('product'));
+        return view('home.index', compact('product'));
 
 
     }

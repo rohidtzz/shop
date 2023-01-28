@@ -234,7 +234,7 @@ class TransactionController extends Controller
             $qr = false;
             return view('transaction.detail',compact('data','total_fee','total','payment_method','qr','status','datas','exp','pengiriman'));
         }
-        return view('transaction.detail',compact('data','total_fee','total','payment_method','qr','status','datas','exp','pengiriman'));
+        return view('home.transaction.detail',compact('data','total_fee','total','payment_method','qr','status','datas','exp','pengiriman'));
 
     }
 
@@ -244,11 +244,9 @@ class TransactionController extends Controller
 
         $users = Auth()->user()->id;
 
-        $data = Transaction::where('user_id',$users)->orderBy('created_at','DESC')->paginate(10);
+        $data = Transaction::where('user_id',$users)->get();
 
-
-
-        return view('transaction.daftar',compact('data'));
+        return view('home.transaction',compact('data'));
 
 
     }
@@ -262,7 +260,7 @@ class TransactionController extends Controller
         // dd($data);
 
 
-        return view('transaction.all',compact('data'));
+        return view('home.transaction',compact('data'));
 
 
     }

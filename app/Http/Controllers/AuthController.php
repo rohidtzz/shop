@@ -26,6 +26,7 @@ class AuthController extends Controller
             'password' => ['required'],
             'email' => ['required','email','unique:users,email'],
             'no_hp' => ['required', 'numeric'],
+            'nik' => ['required', 'numeric']
         ]);
 
         if($validator->fails()) {
@@ -39,6 +40,7 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
             'email' => $request->email,
             'no_hp' => $request->no_hp,
+            'nik' => $request->nik,
             'role' => 'user'
         ]);
 

@@ -43,7 +43,7 @@ class CartController extends Controller
 
         curl_setopt_array($curl, array(
         CURLOPT_FRESH_CONNECT  => true,
-        CURLOPT_URL            => 'https://tripay.co.id/api/merchant/payment-channel',
+        CURLOPT_URL            => 'https://tripay.co.id/api-sandbox/merchant/payment-channel',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_HEADER         => false,
         CURLOPT_HTTPHEADER     => ['Authorization: Bearer '.$apiKey],
@@ -66,13 +66,20 @@ class CartController extends Controller
             $mas = json_decode($response);
         }
 
-        // dd($mas->success);
-
+        // dd($mas);
 
 
         // dd($harga);
+        // return view('home.cart');
+        return view('home.cart',compact('product','total','mas'));
 
-        return view('cart.cart',compact('product','total','mas'));
+    }
+
+    public function create_layanan_digital(Request $request)
+    {
+
+
+
 
     }
 
@@ -87,14 +94,14 @@ class CartController extends Controller
         $trans = Transaction::find(Auth()->user()->id);
 
 
-        if($trans){
-            return redirect()->back()->with('errors', '1 akun hanya bisa beli 1');
-        }
+        // if($trans){
+        //     return redirect()->back()->with('errors', '1 akun hanya bisa beli 1');
+        // }
         // dd($trans);
 
-        if($price == null){
-            return redirect()->back()->with('errors', 'invalid');
-        }
+        // if($price == null){
+        //     return redirect()->back()->with('errors', 'invalid');
+        // }
 
         // dd($price);
 
@@ -106,12 +113,12 @@ class CartController extends Controller
             // dd($cart);
             // $cart = $cart[0];
 
-            // $cek = Cart::where('product_id',$id)->where('user_id',$user)->update([
-            //     'qty' => $cart->qty+1,
-            //     'subtotal' => $cart->subtotal+$price->price
-            // ]);
+            $cek = Cart::where('product_id',$id)->where('user_id',$user)->update([
+                'qty' => $cart->qty+1,
+                'subtotal' => $cart->subtotal+$price->price
+            ]);
 
-            return redirect('/cart')->withSuccess('Add Product hanya bisa 1');
+            return redirect('/cart')->withSuccess('Add Product Berhasil');
         }
 
         $cek = Cart::create([
