@@ -74,39 +74,41 @@
         @endforeach
 
         <br>
+        @if (count($product) >= 1)
 
-        <div class="row">
-            <div class="col-12 col-xl-4 col-md-6">
-                <div class="card" style="margin: 5%">
-                    <div class="card-header">
-                        <h3>Metode Pembayaran</h3>
-                    </div>
-                    <div class="card-body">
-
-                        <div class="row">
-                            <div class="col-12">
-                                <form action="checkout/">
-                                    <select required  name="code" class="form-select" aria-label="Default select example">
-                                        <option class="text-center" selected>-- Pilih Metode Pembayaran --</option>
-                                        @foreach ($mas as $metode)
-                                            <option value="{{ $metode->code }}">{{ $metode->name }}</option>
-                                        @endforeach
-
-                                    </select>
-
-                            </div>
-
-                            <div class="col">
-                                <br>
-                                <button type="suby" class="btn btn-primary">Beli</button>
-                                </form>
-                            </div>
+            <div class="row">
+                <div class="col-12 col-xl-4 col-md-6">
+                    <div class="card" style="margin: 5%">
+                        <div class="card-header">
+                            <h3>Metode Pembayaran</h3>
                         </div>
+                        <div class="card-body">
 
+                            <div class="row">
+                                <div class="col-12">
+                                    <form action="checkout/">
+                                        <select required  name="code" class="form-select" aria-label="Default select example">
+                                            <option class="text-center" selected>-- Pilih Metode Pembayaran --</option>
+                                            @foreach ($mas as $metode)
+                                                <option value="{{ $metode->code }}">{{ $metode->name }}</option>
+                                            @endforeach
+
+                                        </select>
+
+                                </div>
+
+                                <div class="col">
+                                    <br>
+                                    <button type="suby" class="btn btn-primary">Beli</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
 
 
     </div>

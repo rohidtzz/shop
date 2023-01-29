@@ -264,4 +264,37 @@ class TransactionController extends Controller
 
 
     }
+
+    public function transaction_pulsa(Request $request)
+    {
+
+        $tripay = new TripayController;
+
+        $tripaypulsa = $tripay->requestTransactionPulsa($request->all());
+
+        $d[] = [
+            'qty' => 1,
+            'subtotal' => $tripaypulsa->amount,
+            'product_id' => null,
+            'image' => 'gambarPulsa.jpg'
+        ];
+
+        $user = auth()->user();
+
+        $trans = Transaction::create([
+            'amount' => $tripaypulsa->amount,
+            'reference' => $tripaypulsa->reference,
+            'merchant_ref' => $tripaypulsa->merchant_ref,
+            'data' => json_encode($d),
+            'status' => $tripaypulsa->status,
+            'user_id' => $user->id,
+            'expired' => $tripaypulsa->expired_time,
+            'qr' => $tripaypulsa->qr_url,
+        ]);
+
+        return redirect('transaction/'.$tripaypulsa->reference)->withSuccess('Trasaksi berhasil di buat');
+
+
+
+    }
 }

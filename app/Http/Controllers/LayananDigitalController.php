@@ -211,27 +211,109 @@ class LayananDigitalController extends Controller
 
         $data = $hijau->pricelist()->pricelist;
 
+        $tripay = new TripayController;
+
         foreach($data as $d){
 
             if($d->product_type == 'pulsa' && $d->product_description == $operator ){
+
+                $harga  = $tripay->kalkulator($d->product_price+500,"QRIS");
+                // $array = [
+                //     'total' => $dat[0]['product_price']+$harga[0]->total_fee->customer
+                // ];
+
+                // array_push($dat,$array);
 
                 $dat[] = [
                     "product_code" => $d->product_code,
                     "product_description" => $d->product_description,
                     "product_nominal" => $d->product_nominal,
                     "product_details" => $d->product_details,
-                    "product_price" => $d->product_price,
+                    "product_price" => $d->product_price+500+$harga[0]->total_fee->customer,
                     "product_type" => $d->product_type,
                     "active_period" => $d->active_period,
                     "status" => $d->status,
                     "icon_url" => $d->icon_url
                 ];
 
+
+
+
             }
         }
 
+        // dd($dat);
+        // $harga  = $tripay->kalkulator($dat[0]['product_price'],"QRIS");
+
+        // dd($harga[0]->total_fee->customer);
+
+        // $array = [
+        //     'total' => $dat[0]['product_price']+$harga[0]->total_fee->customer
+        // ];
+
+        // array_push($dat,$array);
+
+        // dd($dat);
+
         $data = json_encode($dat,true);
         $data = json_decode($data);
+
+        return response()->json($data);
+
+    }
+
+    public function filter_pulsa($code){
+
+        $hijau = new IakController;
+
+        $data = $hijau->pricelist()->pricelist;
+
+        $tripay = new TripayController;
+
+
+
+        foreach($data as $d){
+
+            if($d->product_code == $code ){
+
+                $harga  = $tripay->kalkulator($d->product_price+500,"QRIS");
+
+                $dat[] = [
+                    "product_code" => $d->product_code,
+                    "product_description" => $d->product_description,
+                    "product_nominal" => $d->product_nominal,
+                    "product_details" => $d->product_details,
+                    "product_price" => $d->product_price+500+$harga[0]->total_fee->customer,
+                    "product_type" => $d->product_type,
+                    "active_period" => $d->active_period,
+                    "status" => $d->status,
+                    "icon_url" => $d->icon_url,
+                    "price" => $d->product_price+500
+                ];
+
+            }
+        }
+        // dd($dat);
+
+        // $harga  = $tripay->kalkulator($dat[0]['product_price'],"QRIS");
+
+        // dd($harga[0]->total_fee->customer);
+
+        // $array = [
+        //     'total' => $dat[0]['product_price']+$harga[0]->total_fee->customer
+        // ];
+
+        // array_push($dat,$array);
+
+        // dd($dat);
+
+
+
+
+        $data = json_encode($dat,true);
+        $data = json_decode($data);
+
+        // dd($data);
 
         return response()->json($data);
 

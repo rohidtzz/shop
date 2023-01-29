@@ -97,7 +97,11 @@ Route::group(['middleware' => ['role:user,staff,admin']], function () {
 
     route::get('/beli/{kategori}', [LayananDigitalController::class,'iak_kategori']);
 
+    route::get('/filter/pulsa/{code}', [LayananDigitalController::class,'filter_pulsa']);
+
     route::get('/prefix/pulsa/{operator}', [LayananDigitalController::class,'prefix_pulsa']);
+
+    route::post('/transaction/pulsa', [TransactionController::class,'transaction_pulsa']);
 
     // route::get('alamat',function(){
     //     return view('alamat');

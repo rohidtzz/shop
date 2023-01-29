@@ -187,7 +187,7 @@ body{
                                     @foreach ($datas as $items)
 
 
-
+                                    {{-- {{dd($items)}} --}}
                                     <div class="product">
                                         <div class="row">
                                             <div class="col-md-3">
@@ -198,10 +198,27 @@ body{
                                                     <div class="row">
                                                         <div class="col-md-5 product-name">
                                                             <div class="product-name">
-                                                                <p href="#">{{ App\Models\Product::find($items->product_id)->name  }}</p>
+                                                                <p href="#">
+
+
+                                                                    @if ($items->product_id == null)
+                                                                        Pulsa
+                                                                    @else
+                                                                     {{App\Models\Product::find($s->product_id)->name}}
+                                                                    @endif
+
+
+
+                                                                </p>
                                                                 <div class="product-info">
                                                                     <p>
-                                                                        {{ App\Models\Product::find($items->product_id)->description  }}
+                                                                        @if ($items->product_id == null)
+
+                                                                        @else
+                                                                        {{App\Models\Product::find($s->product_id)->description}}
+                                                                        @endif
+
+                                                                        {{-- {{ App\Models\Product::find($items->product_id)->description  }} --}}
                                                                     </p>
                                                                     {{-- @if ($status == "PAID")
                                                                         <span class="value badge bg-primary">status: {{ $status }}</span>

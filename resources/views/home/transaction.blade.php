@@ -65,13 +65,31 @@
 
                                             @foreach (json_decode($datas->data) as $s)
 
+                                            @if ($s->product_id == null)
+                                                Pulsa
+                                            @else
                                             {{App\Models\Product::find($s->product_id)->name}}
+                                            @endif
+
+
 
                                             @endforeach
 
                                         </div>
                                         <div class="w-100"></div>
-                                        <div class="text-muted  text-start">1 Barang</div>
+                                        <div class="text-muted  text-start">
+                                            @foreach (json_decode($datas->data) as $s)
+
+                                            @if ($s->product_id == null)
+
+                                            @else
+                                                1 Barang
+                                            @endif
+
+
+
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
                                 <span class="text-start">
