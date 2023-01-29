@@ -28,7 +28,8 @@
 
                             <input type="number" onkeyup="selesai()" name="nohp" class="form-control" id="hp" aria-describedby="basic-addon3">
                             <div class="input-group-text"  ><img src="" id="gambar" width="50px" alt=""></div>
-                          </div>
+                        </div>
+                        <div id="loader"></div>
 
                         {{-- <input  id="hp" onkeyup="selesai()" name="nohp" type="number" class="form-control"> --}}
                         {{-- <div class=""> --}}
@@ -142,6 +143,7 @@
     function selesai(){
         let isi = $('#hp').val()
 
+
         // let gambar = new Image(50,23);
         // gambar.src = 'https://cdn.mobilepulsa.net/img/logo/pulsa/small/indosat.png';
 
@@ -152,13 +154,16 @@
 
         //three
         if(isi == '0896' || isi == '0895' || isi == '0897' || isi == '0899' || isi == '0899'){
-
+            // $('#loader').html("Please WAIT!");
+            $('#loader').html("Please WAIT!");
+            // $('#hp').prop('disabled', true);
             $.ajax({
                 type : 'get',
                 url : '/prefix/pulsa/Three',
                 success : function(data){
 
                     $('.hide').empty();
+
 
                     $(data).each(function(x,y){
                         // console.log(y.category_id)
@@ -221,6 +226,7 @@
                         }
 
                         $('.hide').append(result);
+                        $('#loader').empty()
                     });
 
                     $('#product').empty();
@@ -247,7 +253,7 @@
 
         } else if(isi == '085154' || isi == '085155' || isi == '085156' || isi == '085157' || isi == '085158'){
             //byu
-
+            $('#loader').html("Please WAIT!");
             $.ajax({
                 type : 'get',
                 url : '/prefix/pulsa/By.U',
@@ -285,6 +291,7 @@
 
                                         `;
                         $('.hide').append(result);
+                        $('#loader').empty()
                     });
 
                     $('#product').empty();
@@ -310,7 +317,7 @@
 
         } else if(isi == '0881' || isi == '0882' || isi == '0883' || isi == '0884' || isi == '0885' || isi == '0886' || isi == '0887' || isi == '0888'){
             //smartfren
-
+            $('#loader').html("Please WAIT!");
             $.ajax({
                 type : 'get',
                 url : '/prefix/pulsa/Smart',
@@ -348,6 +355,7 @@
 
                                         `;
                         $('.hide').append(result);
+                        $('#loader').empty()
                     });
 
                     $('#product').empty();
@@ -373,7 +381,7 @@
 
         } else if(isi == '0812' || isi == '0813' || isi == '0852' || isi == '0853' || isi == '0821' || isi == '0823' || isi == '082' || isi == '0851'){
             //telkomsel
-
+            $('#loader').html("Please WAIT!");
             $.ajax({
                 type : 'get',
                 url : '/prefix/pulsa/Telkomsel',
@@ -441,6 +449,7 @@
 
                             }
                         $('.hide').append(result);
+                        $('#loader').empty()
                     });
 
                     $('#product').empty();
@@ -466,7 +475,7 @@
 
         } else if(isi == '0838' || isi == '0837' || isi == '0831' || isi == '0832'){
             //Axis
-
+            $('#loader').html("Please WAIT!");
             $.ajax({
                 type : 'get',
                 url : '/prefix/pulsa/AXIS',
@@ -504,6 +513,7 @@
 
                                         `;
                         $('.hide').append(result);
+                        $('#loader').empty()
                     });
 
                     $('#product').empty();
@@ -529,7 +539,7 @@
 
         } else if(isi == '0817' || isi == '0818' || isi == '0819' || isi == '0859' || isi == '0878' || isi == '0877'){
                 //XL
-
+                $('#loader').html("Please WAIT!");
                 $.ajax({
                     type : 'get',
                     url : '/prefix/pulsa/XL',
@@ -597,6 +607,7 @@
 
                                 }
                             $('.hide').append(result);
+                            $('#loader').empty()
                         });
 
                         $('#product').empty();
@@ -623,7 +634,7 @@
 
             } else if(isi == '0814' || isi == '0815' || isi == '0816' || isi == '0855' || isi == '0856' || isi == '0857' || isi == '0858'){
                 //Indosat
-
+                $('#loader').html("Please WAIT!");
                 $.ajax({
                     type : 'get',
                     url : '/prefix/pulsa/Indosat',
@@ -691,6 +702,7 @@
 
                                 }
                             $('.hide').append(result);
+                            $('#loader').empty()
 
 
 
@@ -721,6 +733,9 @@
                     },
                 });
 
+            } else if(isi == '' || isi == '0' || isi == '08'  ){
+                $('.hide').empty();
+                $('#gambar').attr('src','')
             }
         }
 
