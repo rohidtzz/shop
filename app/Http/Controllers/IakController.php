@@ -38,11 +38,13 @@ class IakController extends Controller
 
     public function topup_pulsa($customer_id,$product_code,$reference){
 
-        $username = "085156850530";
+        $username = "08515685053039463d3a6c0700e6593C".$reference;
         $key = "39463d3a6c0700e6593C";
         $ref = $reference;
 
-        $sign = md5($username+$key+$ref);
+
+        $sign = md5($username);
+
 
         // dd($key);
 
