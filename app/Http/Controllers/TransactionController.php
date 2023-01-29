@@ -268,6 +268,8 @@ class TransactionController extends Controller
     public function transaction_pulsa(Request $request)
     {
 
+        // dd($request->all());
+
         $tripay = new TripayController;
 
         $tripaypulsa = $tripay->requestTransactionPulsa($request->all());
@@ -290,9 +292,11 @@ class TransactionController extends Controller
             'user_id' => $user->id,
             'expired' => $tripaypulsa->expired_time,
             'qr' => $tripaypulsa->qr_url,
+            'customer_id' => $request->nohp,
+            'product_code' => $request->code
         ]);
 
-        return redirect('transaction/'.$tripaypulsa->reference)->withSuccess('Trasaksi berhasil di buat');
+        return redirect('transaction/'.$tripaypulsa->reference)->withSuccess('Transaksi berhasil di buat');
 
 
 

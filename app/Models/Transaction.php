@@ -18,7 +18,9 @@ class Transaction extends Model
         'data',
         'user_id',
         'expired',
-        'qr'
+        'qr',
+        'customer_id',
+        'product_code'
     ];
 
     public function user(){

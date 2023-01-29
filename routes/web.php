@@ -10,6 +10,7 @@ use App\Http\Controllers\CheckoutController;
 
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TripayCallbackController;
+use App\Http\Controllers\IakCallbackController;
 
 use App\Http\Controllers\ShippingController;
 
@@ -120,6 +121,7 @@ Route::group(['middleware' => ['role:user,staff,admin']], function () {
 
 // route::get('/cost',[ShippingContro   ller::class,'cost']);
 
+route::get('/callback/iak', [IakCallbackController::class,'handle']);
 
 
 route::post('/callback', [TripayCallbackController::class,'handle']);
