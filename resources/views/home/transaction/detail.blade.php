@@ -278,12 +278,12 @@ body{
 			 				<div class="summary">
 			 					<h3>Summary</h3>
 
-			 					<div class="summary-item"><span class="text">Fee payment method {{ $payment_method }}</span><span class="price">Rp. {{ number_format($total_fee) }}</span></div>
+			 					{{-- <div class="summary-item"><span class="text">Fee payment method {{ $payment_method }}</span><span class="price">Rp. {{ number_format($total_fee) }}</span></div> --}}
                                  {{-- <div class="summary-item"><span class="text">Biaya Pengiriman JNE OKE</span><span class="price">Rp. {{ number_format($pengiriman->cost) }}</span></div> --}}
                                 @if ($status == "PAID")
-                                <div class="summary-item"><span class="text">Jumlah yang sudah dibayar</span><span style="font-weight: bold;font-size:22px" class="price">Rp. {{ number_format($total) }}</span></div>
+                                <div class="summary-item"><span class="text">Jumlah yang sudah dibayar</span><span style="font-weight: bold;font-size:18px" class="price">Rp. {{ number_format($total) }}</span></div>
                                 @else
-                                <div class="summary-item"><span class="text">Jumlah yang harus dibayar</span><span style="font-weight: bold;font-size:22px" class="price">Rp. {{ number_format($total) }}</span></div>
+                                <div class="summary-item"><span class="text">Jumlah yang harus dibayar</span><span style="font-weight: bold;font-size:18px" class="price">Rp. {{ number_format($total) }}</span></div>
                                 @endif
 
 			 					{{-- <a type="button" href="{{ url('/checkout') }}" class="btn btn-primary btn-lg btn-block">Checkout</a> --}}
