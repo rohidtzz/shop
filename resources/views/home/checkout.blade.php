@@ -1,18 +1,20 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html>
 <head>
 	<title>Ultras Garuda - Checkout</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-	{{-- <link rel="stylesheet" href="assets/css/style.css"> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script
   src="https://code.jquery.com/jquery-3.2.1.js"
   integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-  crossorigin="anonymous"></script>
+  crossorigin="anonymous"></script> --}}
+@extends('home.layouts.master')
+@extends('home.layouts.navbar')
+
+@section('style')
 
     <style>
         .shopping-cart{
@@ -153,48 +155,12 @@ body{
 }
 
     </style>
-</head>
+@endsection
+@section('content')
 <body >
     {{-- <div id="preloader"></div> --}}
     {{-- <div id="loadingMask" style="width: 100%; height: 100vh; position: fixed;z-index: 999; background:url('{{ asset('blok/f.gif') }}') 50% no-repeat #fff;"></div> --}}
     {{-- <img src="" alt="" srcset=""> --}}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container px-4 px-lg-5">
-            {{-- <a class="navbar-brand" href="#!">Hidtzz Store</a> --}}
-            <a class="navbar-brand" href="{{ url('/') }}">Sezione Tangerag</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a></li>
-                    @if (Auth::Check())
-
-                        @if (Auth()->user()->role == "admin" || Auth()->user()->role == "staff")
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/transaction/all') }}">Transaction</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/admin/product') }}">Product</a></li>
-                        <li class="nav-item"><a class="nav-link active"  type="submit" onclick="return confirm('yakin logout?');"  aria-current="page" href="{{ url('/logout') }}">Logout</a></li>
-                        @else
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/transaction/daftar') }}">Transaction</a></li>
-                        <li class="nav-item"><a class="nav-link active"  type="submit" onclick="return confirm('yakin logout?');"  aria-current="page" href="{{ url('/logout') }}">Logout</a></li>
-
-                        @endif
-
-                        @else
-                        @endif
-                    {{-- <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">All Products</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                            <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                        </ul>
-                    </li> --}}
-                </ul>
-
-            </div>
-        </div>
-    </nav>
 
     {{-- <main class="page" style="margin-top: 4% ">
         <section class="shopping-cart dark">
@@ -448,6 +414,9 @@ body{
             </div>
        </section>
    </main>
+   <br>
+   <br>
+   <br>
    {{-- <script>
     $(document).ready(function(){
         let city = $("input[name=city_id]").val();
@@ -487,11 +456,4 @@ body{
         });
     });
    </script> --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    @include('sweetalert::alert')
-</body>
-
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-</body>
-</html>
+@endsection

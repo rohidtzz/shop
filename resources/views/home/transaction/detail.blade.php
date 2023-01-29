@@ -204,7 +204,7 @@ body{
                                                                     @if ($items->product_id == null)
                                                                         Pulsa
                                                                     @else
-                                                                     {{App\Models\Product::find($s->product_id)->name}}
+                                                                     {{App\Models\Product::find($items->product_id)->name}}
                                                                     @endif
 
 
@@ -215,7 +215,7 @@ body{
                                                                         @if ($items->product_id == null)
 
                                                                         @else
-                                                                        {{App\Models\Product::find($s->product_id)->description}}
+                                                                        {{App\Models\Product::find($items->product_id)->description}}
                                                                         @endif
 
                                                                         {{-- {{ App\Models\Product::find($items->product_id)->description  }} --}}
