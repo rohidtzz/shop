@@ -60,7 +60,7 @@ class IakController extends Controller
             "customer_id"=> $customer_id,
             "product_code"=> $product_code,
             "ref_id"=> $ref,
-            "username"=> $username,
+            "username"=> "085156850530",
             "sign"=> $sign
         );
 
