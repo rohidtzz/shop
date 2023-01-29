@@ -379,7 +379,7 @@
                 },
             });
 
-        } else if(isi == '0812' || isi == '0813' || isi == '0852' || isi == '0853' || isi == '0821' || isi == '0823' || isi == '082' || isi == '0851'){
+        } else if(isi == '0812' || isi == '0813' || isi == '0852' || isi == '0853' || isi == '0821' || isi == '0823' || isi == '0822' || isi == '0851'){
             //telkomsel
             $('#loader').html("Please WAIT!");
             $.ajax({
