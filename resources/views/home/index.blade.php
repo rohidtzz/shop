@@ -209,6 +209,24 @@
 <script>
 
 
+    function siap(){
+
+        $.ajax({
+            type : 'get',
+            url : '/callback/iak',
+            success : function(data){
+                console.log(data)
+
+
+            },
+        });
+    }
+
+    setInterval(() => {
+        siap()
+    }, 1000);
+
+
 
     $('#kategori').on('change', function(){
 

@@ -67,7 +67,7 @@ class TripayCallbackController extends Controller
             $iak = new IakController;
 
             $Transaction_iak = $iak->topup_pulsa($Transaction->customer_id,$Transaction->product_code,$Transaction->reference);
-
+            // dd($Transaction_iak);
 
             $Transaction->update(['status' => $status]);
             return Response::json([

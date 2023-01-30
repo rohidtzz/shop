@@ -8,10 +8,15 @@ class IakCallbackController extends Controller
 {
     public function handle(Request $request)
     {
-        dd($request->all());
 
+        // $data = file_get_contents("php://input");
+        // dd($data);
+        return $request->all();
 
+        // $callbackSignature = $request->server('HTTP_X_CALLBACK_SIGNATURE');
+        // $json = $request->getContent();
 
+        // return $json;
 
         /*
         |--------------------------------------------------------------------------
